@@ -1,0 +1,3 @@
+C:/Users/Malloc/Desktop/plus_tetris/build/CMakeFiles/plus_tetris.dir
+C:/Users/Malloc/Desktop/plus_tetris/build/CMakeFiles/edit_cache.dir
+C:/Users/Malloc/Desktop/plus_tetris/build/CMakeFiles/rebuild_cache.dir

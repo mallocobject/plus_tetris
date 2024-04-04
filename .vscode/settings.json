@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "chrono": "cpp",
+        "iostream": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "D:\\mingw-w64\\mingw64\\bin\\g++"
+}

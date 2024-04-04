@@ -1,0 +1,26 @@
+[
+{
+  "directory": "C:/Users/Malloc/Desktop/plus_tetris/build",
+  "command": "D:\\mingw-w64\\mingw64\\bin\\g++.exe   -g -std=gnu++2a -o CMakeFiles\\plus_tetris.dir\\game.cpp.obj -c C:\\Users\\Malloc\\Desktop\\plus_tetris\\game.cpp",
+  "file": "C:/Users/Malloc/Desktop/plus_tetris/game.cpp",
+  "output": "CMakeFiles/plus_tetris.dir/game.cpp.obj"
+},
+{
+  "directory": "C:/Users/Malloc/Desktop/plus_tetris/build",
+  "command": "D:\\mingw-w64\\mingw64\\bin\\g++.exe   -g -std=gnu++2a -o CMakeFiles\\plus_tetris.dir\\main.cpp.obj -c C:\\Users\\Malloc\\Desktop\\plus_tetris\\main.cpp",
+  "file": "C:/Users/Malloc/Desktop/plus_tetris/main.cpp",
+  "output": "CMakeFiles/plus_tetris.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/Malloc/Desktop/plus_tetris/build",
+  "command": "D:\\mingw-w64\\mingw64\\bin\\g++.exe   -g -std=gnu++2a -o CMakeFiles\\plus_tetris.dir\\terminal.cpp.obj -c C:\\Users\\Malloc\\Desktop\\plus_tetris\\terminal.cpp",
+  "file": "C:/Users/Malloc/Desktop/plus_tetris/terminal.cpp",
+  "output": "CMakeFiles/plus_tetris.dir/terminal.cpp.obj"
+},
+{
+  "directory": "C:/Users/Malloc/Desktop/plus_tetris/build",
+  "command": "D:\\mingw-w64\\mingw64\\bin\\g++.exe   -g -std=gnu++2a -o CMakeFiles\\plus_tetris.dir\\utils.cpp.obj -c C:\\Users\\Malloc\\Desktop\\plus_tetris\\utils.cpp",
+  "file": "C:/Users/Malloc/Desktop/plus_tetris/utils.cpp",
+  "output": "CMakeFiles/plus_tetris.dir/utils.cpp.obj"
+}
+]

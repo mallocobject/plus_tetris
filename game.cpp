@@ -11,12 +11,18 @@ void Game::start()
     std::cin.tie(nullptr);
 }
 
-void Game::update()
+void Game::update(int &top)
 {
+    if (utils::checkDuration(500))
+    {
+        top++;
+    }
 }
 
-void Game::render()
+void Game::render(Tetromino_ref matrix, int top, int left, int index)
 {
+    terminal::resetColor();
+    tetromino::draw(matrix, top, left, index);
 }
 
 void Game::end()
@@ -34,7 +40,9 @@ void Game::end()
 
 std::thread Game::runSubThread()
 {
-    return std::thread();
+    std::unordered_map<char, std::function<void()>> key_map;
+    std::thread t(handleSignals, std::ref(key_map));
+    return t;
 }
 
 void Game::setFPS(int fps)
@@ -43,17 +51,14 @@ void Game::setFPS(int fps)
 
 void Game::setDuration(int interval)
 {
+    utils::setDuration(interval);
 }
 
-inline int block2col(int val)
+void Game::setWindow(int top, int left, int height, int width, const std::string &title)
 {
-    return val * 2 - 1;
-}
 
-void Game::setWindow(int row, int col, int height, int width, const std::string &title)
-{
     terminal::setColor(terminal::Color::White);
-    terminal::setCursor(row, block2col(col));
+    terminal::setCursor(top, utils::b2c(left));
     terminal::write(" ┌");
     for (int i = 0; i < width; i++)
     {
@@ -63,13 +68,13 @@ void Game::setWindow(int row, int col, int height, int width, const std::string 
 
     for (int i = 1; i <= height; i++)
     {
-        terminal::setCursor(row + i, block2col(col) + 1);
+        terminal::setCursor(top + i, utils::b2c(left) + 1);
         terminal::write("│");
-        terminal::setCursor(row + i, block2col(col + width) + 2);
+        terminal::setCursor(top + i, utils::b2c(left + width) + 2);
         terminal::write("│");
     }
 
-    terminal::setCursor(row + height + 1, block2col(col));
+    terminal::setCursor(top + height + 1, utils::b2c(left));
     terminal::write(" └");
     for (int i = 0; i < width; i++)
     {
@@ -77,7 +82,42 @@ void Game::setWindow(int row, int col, int height, int width, const std::string 
     }
     terminal::write("┘");
 
-    terminal::setCursor(row - 1, block2col(col) + 3 + (block2col(width) - title.size()) / 2);
+    terminal::setCursor(top, utils::b2c(left) + 2 + (width * 2 - title.size()) / 2);
     terminal::setColor(terminal::Color::Green, true);
-    terminal::write(title);
+    terminal::fwrite(title);
 }
+
+void Game::rotate(int &index)
+{
+    index = (index + 1) % 4;
+}
+
+void Game::down(int &top)
+{
+}
+
+void Game::left(int &left)
+{
+}
+
+void Game::right(int &left)
+{
+}
+
+void Game::handleSignals(std::unordered_map<char, std::function<void()>> &key_map)
+{
+    while (running_flag)
+    {
+        char ch = _getch();
+        if (ch == 'q')
+        {
+            running_flag = false;
+        }
+        if (key_map.find(ch) != key_map.end())
+        {
+            key_map[ch]();
+        }
+    }
+}
+
+std::atomic<bool> Game::running_flag = true;

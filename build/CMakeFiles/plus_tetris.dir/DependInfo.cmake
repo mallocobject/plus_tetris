@@ -10,7 +10,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/Malloc/Desktop/plus_tetris/game.cpp" "CMakeFiles/plus_tetris.dir/game.cpp.obj" "gcc" "CMakeFiles/plus_tetris.dir/game.cpp.obj.d"
   "C:/Users/Malloc/Desktop/plus_tetris/main.cpp" "CMakeFiles/plus_tetris.dir/main.cpp.obj" "gcc" "CMakeFiles/plus_tetris.dir/main.cpp.obj.d"
+  "C:/Users/Malloc/Desktop/plus_tetris/piece.cpp" "CMakeFiles/plus_tetris.dir/piece.cpp.obj" "gcc" "CMakeFiles/plus_tetris.dir/piece.cpp.obj.d"
   "C:/Users/Malloc/Desktop/plus_tetris/terminal.cpp" "CMakeFiles/plus_tetris.dir/terminal.cpp.obj" "gcc" "CMakeFiles/plus_tetris.dir/terminal.cpp.obj.d"
+  "C:/Users/Malloc/Desktop/plus_tetris/tetromino.cpp" "CMakeFiles/plus_tetris.dir/tetromino.cpp.obj" "gcc" "CMakeFiles/plus_tetris.dir/tetromino.cpp.obj.d"
   "C:/Users/Malloc/Desktop/plus_tetris/utils.cpp" "CMakeFiles/plus_tetris.dir/utils.cpp.obj" "gcc" "CMakeFiles/plus_tetris.dir/utils.cpp.obj.d"
   )
 

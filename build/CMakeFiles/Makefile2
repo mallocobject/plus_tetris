@@ -80,12 +80,12 @@ clean: CMakeFiles/plus_tetris.dir/clean
 CMakeFiles/plus_tetris.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=1,2,3,4,5 "Built target plus_tetris"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target plus_tetris"
 .PHONY : CMakeFiles/plus_tetris.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/plus_tetris.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/plus_tetris.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles 0
 .PHONY : CMakeFiles/plus_tetris.dir/rule

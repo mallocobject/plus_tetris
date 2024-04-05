@@ -10,6 +10,7 @@
 #include <functional>
 #include <windows.h>
 #include <vector>
+#include <array>
 #include <string>
 #include <utility>
 #include <conio.h>
@@ -17,6 +18,7 @@
 #include "utils.h"
 #include "terminal.h"
 #include "game.h"
+#include "tetromino.h"
 
 #define KEY_UP(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? 0 : 1)
 #define KEY_DOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? 1 : 0)

@@ -2,11 +2,6 @@
 
 void terminal::setColor(Color color, bool isForeground)
 {
-    if (color == Color::Null)
-    {
-        std::cout << "\033[0m";
-        return;
-    }
     std::cout << "\033[" << (isForeground ? 30 : 40) + static_cast<int>(color) << "m";
 }
 

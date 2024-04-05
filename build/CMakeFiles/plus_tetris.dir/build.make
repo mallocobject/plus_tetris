@@ -96,10 +96,24 @@ CMakeFiles/plus_tetris.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/plus_tetris.dir/main.cpp.s"
 	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Malloc\Desktop\plus_tetris\main.cpp -o CMakeFiles\plus_tetris.dir\main.cpp.s
 
+CMakeFiles/plus_tetris.dir/piece.cpp.obj: CMakeFiles/plus_tetris.dir/flags.make
+CMakeFiles/plus_tetris.dir/piece.cpp.obj: C:/Users/Malloc/Desktop/plus_tetris/piece.cpp
+CMakeFiles/plus_tetris.dir/piece.cpp.obj: CMakeFiles/plus_tetris.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/plus_tetris.dir/piece.cpp.obj"
+	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/plus_tetris.dir/piece.cpp.obj -MF CMakeFiles\plus_tetris.dir\piece.cpp.obj.d -o CMakeFiles\plus_tetris.dir\piece.cpp.obj -c C:\Users\Malloc\Desktop\plus_tetris\piece.cpp
+
+CMakeFiles/plus_tetris.dir/piece.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/plus_tetris.dir/piece.cpp.i"
+	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Malloc\Desktop\plus_tetris\piece.cpp > CMakeFiles\plus_tetris.dir\piece.cpp.i
+
+CMakeFiles/plus_tetris.dir/piece.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/plus_tetris.dir/piece.cpp.s"
+	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Malloc\Desktop\plus_tetris\piece.cpp -o CMakeFiles\plus_tetris.dir\piece.cpp.s
+
 CMakeFiles/plus_tetris.dir/terminal.cpp.obj: CMakeFiles/plus_tetris.dir/flags.make
 CMakeFiles/plus_tetris.dir/terminal.cpp.obj: C:/Users/Malloc/Desktop/plus_tetris/terminal.cpp
 CMakeFiles/plus_tetris.dir/terminal.cpp.obj: CMakeFiles/plus_tetris.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/plus_tetris.dir/terminal.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/plus_tetris.dir/terminal.cpp.obj"
 	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/plus_tetris.dir/terminal.cpp.obj -MF CMakeFiles\plus_tetris.dir\terminal.cpp.obj.d -o CMakeFiles\plus_tetris.dir\terminal.cpp.obj -c C:\Users\Malloc\Desktop\plus_tetris\terminal.cpp
 
 CMakeFiles/plus_tetris.dir/terminal.cpp.i: cmake_force
@@ -110,10 +124,24 @@ CMakeFiles/plus_tetris.dir/terminal.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/plus_tetris.dir/terminal.cpp.s"
 	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Malloc\Desktop\plus_tetris\terminal.cpp -o CMakeFiles\plus_tetris.dir\terminal.cpp.s
 
+CMakeFiles/plus_tetris.dir/tetromino.cpp.obj: CMakeFiles/plus_tetris.dir/flags.make
+CMakeFiles/plus_tetris.dir/tetromino.cpp.obj: C:/Users/Malloc/Desktop/plus_tetris/tetromino.cpp
+CMakeFiles/plus_tetris.dir/tetromino.cpp.obj: CMakeFiles/plus_tetris.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/plus_tetris.dir/tetromino.cpp.obj"
+	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/plus_tetris.dir/tetromino.cpp.obj -MF CMakeFiles\plus_tetris.dir\tetromino.cpp.obj.d -o CMakeFiles\plus_tetris.dir\tetromino.cpp.obj -c C:\Users\Malloc\Desktop\plus_tetris\tetromino.cpp
+
+CMakeFiles/plus_tetris.dir/tetromino.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/plus_tetris.dir/tetromino.cpp.i"
+	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Malloc\Desktop\plus_tetris\tetromino.cpp > CMakeFiles\plus_tetris.dir\tetromino.cpp.i
+
+CMakeFiles/plus_tetris.dir/tetromino.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/plus_tetris.dir/tetromino.cpp.s"
+	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Malloc\Desktop\plus_tetris\tetromino.cpp -o CMakeFiles\plus_tetris.dir\tetromino.cpp.s
+
 CMakeFiles/plus_tetris.dir/utils.cpp.obj: CMakeFiles/plus_tetris.dir/flags.make
 CMakeFiles/plus_tetris.dir/utils.cpp.obj: C:/Users/Malloc/Desktop/plus_tetris/utils.cpp
 CMakeFiles/plus_tetris.dir/utils.cpp.obj: CMakeFiles/plus_tetris.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/plus_tetris.dir/utils.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/plus_tetris.dir/utils.cpp.obj"
 	D:\mingw-w64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/plus_tetris.dir/utils.cpp.obj -MF CMakeFiles\plus_tetris.dir\utils.cpp.obj.d -o CMakeFiles\plus_tetris.dir\utils.cpp.obj -c C:\Users\Malloc\Desktop\plus_tetris\utils.cpp
 
 CMakeFiles/plus_tetris.dir/utils.cpp.i: cmake_force
@@ -128,7 +156,9 @@ CMakeFiles/plus_tetris.dir/utils.cpp.s: cmake_force
 plus_tetris_OBJECTS = \
 "CMakeFiles/plus_tetris.dir/game.cpp.obj" \
 "CMakeFiles/plus_tetris.dir/main.cpp.obj" \
+"CMakeFiles/plus_tetris.dir/piece.cpp.obj" \
 "CMakeFiles/plus_tetris.dir/terminal.cpp.obj" \
+"CMakeFiles/plus_tetris.dir/tetromino.cpp.obj" \
 "CMakeFiles/plus_tetris.dir/utils.cpp.obj"
 
 # External object files for target plus_tetris
@@ -136,13 +166,15 @@ plus_tetris_EXTERNAL_OBJECTS =
 
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/game.cpp.obj
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/main.cpp.obj
+plus_tetris.exe: CMakeFiles/plus_tetris.dir/piece.cpp.obj
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/terminal.cpp.obj
+plus_tetris.exe: CMakeFiles/plus_tetris.dir/tetromino.cpp.obj
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/utils.cpp.obj
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/build.make
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/linkLibs.rsp
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/objects1.rsp
 plus_tetris.exe: CMakeFiles/plus_tetris.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable plus_tetris.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Malloc\Desktop\plus_tetris\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable plus_tetris.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\plus_tetris.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

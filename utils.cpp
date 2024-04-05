@@ -1,6 +1,6 @@
 #include "utils.h"
 
-int utilities::getFPS()
+int utils::getFPS()
 {
     static auto begin = std::chrono::steady_clock::now();
     static int frame_count_buff = 0;
@@ -21,12 +21,12 @@ int utilities::getFPS()
     return frame_count;
 }
 
-long long utilities::getCurrentTimestamp()
+long long utils::getCurrentTimestamp()
 {
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
-bool utilities::setDuration(int interval)
+bool utils::checkDuration(int interval)
 {
     static auto begin = std::chrono::steady_clock::now();
     auto end = std::chrono::steady_clock::now();
@@ -38,10 +38,29 @@ bool utilities::setDuration(int interval)
     return false;
 }
 
-int utilities::generateRandomNumber(int min, int max)
+int utils::generateRandomNumber(int min, int max)
 {
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dis(min, max);
     return dis(gen);
+}
+
+void utils::setDuration(int interval)
+{
+    static auto begin = std::chrono::steady_clock::now();
+    auto now = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - begin);
+
+    if (elapsed.count() < interval)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(interval) - elapsed);
+    }
+
+    begin = std::chrono::steady_clock::now();
+}
+
+int utils::b2c(int val)
+{
+    return val * 2 - 1;
 }

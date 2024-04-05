@@ -176,6 +176,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+piece.obj: piece.cpp.obj
+.PHONY : piece.obj
+
+# target to build an object file
+piece.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/piece.cpp.obj
+.PHONY : piece.cpp.obj
+
+piece.i: piece.cpp.i
+.PHONY : piece.i
+
+# target to preprocess a source file
+piece.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/piece.cpp.i
+.PHONY : piece.cpp.i
+
+piece.s: piece.cpp.s
+.PHONY : piece.s
+
+# target to generate assembly for a file
+piece.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/piece.cpp.s
+.PHONY : piece.cpp.s
+
 terminal.obj: terminal.cpp.obj
 .PHONY : terminal.obj
 
@@ -199,6 +223,30 @@ terminal.s: terminal.cpp.s
 terminal.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/terminal.cpp.s
 .PHONY : terminal.cpp.s
+
+tetromino.obj: tetromino.cpp.obj
+.PHONY : tetromino.obj
+
+# target to build an object file
+tetromino.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/tetromino.cpp.obj
+.PHONY : tetromino.cpp.obj
+
+tetromino.i: tetromino.cpp.i
+.PHONY : tetromino.i
+
+# target to preprocess a source file
+tetromino.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/tetromino.cpp.i
+.PHONY : tetromino.cpp.i
+
+tetromino.s: tetromino.cpp.s
+.PHONY : tetromino.s
+
+# target to generate assembly for a file
+tetromino.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\plus_tetris.dir\build.make CMakeFiles/plus_tetris.dir/tetromino.cpp.s
+.PHONY : tetromino.cpp.s
 
 utils.obj: utils.cpp.obj
 .PHONY : utils.obj
@@ -239,9 +287,15 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... piece.obj
+	@echo ... piece.i
+	@echo ... piece.s
 	@echo ... terminal.obj
 	@echo ... terminal.i
 	@echo ... terminal.s
+	@echo ... tetromino.obj
+	@echo ... tetromino.i
+	@echo ... tetromino.s
 	@echo ... utils.obj
 	@echo ... utils.i
 	@echo ... utils.s

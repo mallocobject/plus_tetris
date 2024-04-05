@@ -6,7 +6,7 @@ namespace terminal
 {
     enum class Color
     {
-        Null = -1,
+        Default = 9,
         Black = 0,
         Red,
         Green,
@@ -45,6 +45,12 @@ namespace terminal
 
     template <typename T>
     void write(T &&text)
+    {
+        std::cout << text;
+    }
+
+    template <typename T>
+    void fwrite(T &&text)
     {
         std::cout << text << std::flush;
     }

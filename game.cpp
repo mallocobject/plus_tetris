@@ -1,48 +1,107 @@
 #include "game.h"
+#include "define.h"
+
+Game::~Game()
+{
+    std::cout << "Game Over!" << std::endl;
+}
 
 void Game::start()
 {
     terminal::setCursor(1, 1);
-    terminal::resetColor();
+    terminal::reset();
     system("chcp 65001"); // UTF-8
     terminal::clearScreen();
     terminal::hideCursor();
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
+    frame = playfield;
+    setSignalHandler();
 }
 
-void Game::update(int &top)
+void Game::update()
 {
-    if (utils::checkDuration(500))
+    // drop naturally
+    if (utils::checkDuration(duration))
+        piece.down();
+
+    frame = playfield;
+    auto [xo, yo] = piece.getPosition();
+    int index = piece.getIndex();
+    tetromino::Tetromino t = piece.getTetromino();
+    // int color = piece.getColor();
+    // normal block
+    for (int i = 0; i < 4; i++)
     {
-        top++;
+        auto [dx, dy] = piece.getTetroPosition(i);
+        frame[xo + dx][yo + dy] = t[index][0].second; // color as value
+    }
+
+    // shadow block
+    while (piece.isValid(xo, yo - 1))
+    {
+        yo--;
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        auto [dx, dy] = piece.getTetroPosition(i);
+        if (frame[xo + dx][yo + dy] == 0)
+            frame[xo + dx][yo + dy] = -t[index][0].second; // color as value
     }
 }
 
-void Game::render(Tetromino_ref matrix, int top, int left, int index)
+void Game::render(int top, int left)
 {
-    terminal::resetColor();
-    tetromino::draw(matrix, top, left, index);
+    static int count = 0;
+    count++;
+    utils::getFPS(count);
+    int n = frame[0].size();
+    for (int i = 0; i < frame.size(); i++)
+    {
+        for (int j = 2; j < n; j++)
+        {
+            terminal::setCursor(top + n - j - 1, utils::b2c(left + i));
+            // background
+            if (frame[i][j] == 0)
+            {
+                terminal::reset();
+                // terminal::setColor(terminal::Color::Green, true);
+                terminal::write("\u30fb");
+            }
+            // normal block
+            else if (frame[i][j] > 0)
+            {
+                terminal::setColor((terminal::Color)frame[i][j], false);
+                terminal::write("  ");
+            }
+            // shadow block
+            else
+            {
+                terminal::setColor((terminal::Color)(-frame[i][j]), true);
+                terminal::write("\u2593\u2593");
+            }
+        }
+    }
 }
 
 void Game::end()
 {
+    endl(std::cout);
     terminal::setCursor(3, 1);
     terminal::setStyle(terminal::Style::Bold);
     terminal::setColor(terminal::Color::Red);
-    std::cout << "Game Over!" << std::endl;
-    system("pause");
+    terminal::fwrite("Game Over!\n");
+    // system("pause"); // 无pause
     terminal::showCursor();
     terminal::clearScreen();
-    terminal::resetColor();
+    terminal::reset();
     terminal::setCursor(1, 1);
+    endl(std::cout);
 }
 
 std::thread Game::runSubThread()
 {
-    std::unordered_map<char, std::function<void()>> key_map;
-    std::thread t(handleSignals, std::ref(key_map));
-    return t;
+    return std::thread(&Game::handleSignals);
 }
 
 void Game::setFPS(int fps)
@@ -52,6 +111,11 @@ void Game::setFPS(int fps)
 void Game::setDuration(int interval)
 {
     utils::setDuration(interval);
+}
+
+void Game::setDropInterval(int interval)
+{
+    duration = interval;
 }
 
 void Game::setWindow(int top, int left, int height, int width, const std::string &title)
@@ -87,37 +151,64 @@ void Game::setWindow(int top, int left, int height, int width, const std::string
     terminal::fwrite(title);
 }
 
-void Game::rotate(int &index)
+void Game::rotate()
 {
-    index = (index + 1) % 4;
+    piece.rotate();
 }
 
-void Game::down(int &top)
+void Game::down()
 {
+    piece.down();
 }
 
-void Game::left(int &left)
+void Game::left()
 {
+    piece.left();
 }
 
-void Game::right(int &left)
+void Game::right()
 {
+    piece.right();
 }
 
-void Game::handleSignals(std::unordered_map<char, std::function<void()>> &key_map)
+void Game::setSignalHandler()
 {
-    while (running_flag)
+    key_map = {
+        {'w', rotate},
+        {'s', down},
+        {'a', left},
+        {'d', right},
+    };
+}
+
+void Game::handleSignals()
+{
+    while (true)
     {
-        char ch = _getch();
-        if (ch == 'q')
+        if (_kbhit)
         {
-            running_flag = false;
-        }
-        if (key_map.find(ch) != key_map.end())
-        {
-            key_map[ch]();
+            char ch = _getch();
+            if (ch == 'q')
+            {
+                running_flag = false;
+                break;
+            }
+            if (key_map.find(ch) != key_map.end())
+            {
+                key_map[ch]();
+            }
         }
     }
 }
 
 std::atomic<bool> Game::running_flag = true;
+Matrix Game::playfield = Matrix(10, std::vector<int>(22, 0));
+Matrix Game::frame = Matrix(10, std::vector<int>(22, 0));
+Piece Game::piece = Piece::generatePiece(&playfield);
+int Game::duration = 500; // 500ms
+std::unordered_map<char, std::function<void()>> Game::key_map = {
+    {'w', rotate},
+    {'s', down},
+    {'a', left},
+    {'d', right},
+};

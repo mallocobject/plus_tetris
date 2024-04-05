@@ -4,7 +4,7 @@
 
 namespace utils
 {
-    int getFPS();
+    int getFPS(int &frame_count);
     long long getCurrentTimestamp();
     bool checkDuration(int interval);
     int generateRandomNumber(int min, int max);

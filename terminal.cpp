@@ -30,7 +30,7 @@ void terminal::clearScreen()
     std::cout << "\033[2J";
 }
 
-void terminal::resetColor()
+void terminal::reset()
 {
     std::cout << "\033[0m";
 }

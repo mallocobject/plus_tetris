@@ -15,12 +15,17 @@
 #include <utility>
 #include <conio.h>
 #include <random>
+#include <cassert>
 #include "utils.h"
 #include "terminal.h"
-#include "game.h"
 #include "tetromino.h"
 
 #define KEY_UP(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? 0 : 1)
 #define KEY_DOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? 1 : 0)
 
 using namespace std::chrono_literals;
+
+using Matrix = std::vector<std::vector<int>>;
+using Matrix_ref = std::vector<std::vector<int>> &;
+using Tetromino = std::array<std::array<std::pair<int, int>, 4>, 4>;
+using Tetromino_ref = std::array<std::array<std::pair<int, int>, 4>, 4> &;

@@ -1,24 +1,24 @@
 #include "utils.h"
 
-int utils::getFPS()
+int utils::getFPS(int &frame_count)
 {
     static auto begin = std::chrono::steady_clock::now();
-    static int frame_count_buff = 0;
-    static int frame_count = 0;
+    static int fps = 0;
 
     auto end = std::chrono::steady_clock::now();
-    frame_count_buff++;
-    if (end - begin > 1s)
+    if (end - begin >= 1s)
     {
-        frame_count = frame_count_buff;
-        frame_count_buff = 0;
+        fps = frame_count;
+        frame_count = 0;
         begin = end;
     }
+    terminal::reset();
     terminal::setCursor(1, 1);
     terminal::setColor(terminal::Color::White, true);
     terminal::write("FPS: ");
-    terminal::write(frame_count);
-    return frame_count;
+    terminal::write(fps);
+    terminal::write(' ');
+    return fps;
 }
 
 long long utils::getCurrentTimestamp()
@@ -48,17 +48,26 @@ int utils::generateRandomNumber(int min, int max)
 
 void utils::setDuration(int interval)
 {
-    static auto begin = std::chrono::steady_clock::now();
-    auto now = std::chrono::steady_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - begin);
-
-    if (elapsed.count() < interval)
+    auto begin = std::chrono::system_clock::now();
+    auto now = begin;
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - begin);
+    while (duration.count() < interval)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(interval) - elapsed);
+        now = std::chrono::system_clock::now();
+        duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - begin);
     }
-
-    begin = std::chrono::steady_clock::now();
 }
+
+// void timingus(size_t us)
+// {
+//     auto start = std::chrono::system_clock::now();
+//     while (1)
+//     {
+//         auto end = std::chrono::system_clock::now();
+//         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+//         if (duration.count() > us) break;
+//     }
+// }
 
 int utils::b2c(int val)
 {

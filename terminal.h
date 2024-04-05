@@ -1,6 +1,6 @@
 #pragma once
 
-#include "define.h"
+#include <iostream>
 
 namespace terminal
 {
@@ -41,7 +41,7 @@ namespace terminal
 
     void clearScreen();
 
-    void resetColor();
+    void reset();
 
     template <typename T>
     void write(T &&text)

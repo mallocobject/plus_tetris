@@ -1,19 +1,19 @@
 #include "define.h"
-
-extern tetromino::Tetromino J;
+#include "game.h"
 
 int main()
 {
     Game gm;
     gm.start();
     gm.setWindow(1, 5, 20, 10, "tetris");
-    int top = 2;
+    std::thread th = gm.runSubThread();
     while (gm.running_flag)
     {
-        gm.update(top);
-        gm.render(J, top, 7, 0);
+        gm.update();
+        gm.render(2, 6);
         gm.setDuration(10); // 10ms
     }
+    th.join();
     gm.end();
     return 0;
 }

@@ -417,7 +417,10 @@ CMakeFiles/plus_tetris.dir/main.cpp.obj: \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/random.tcc \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/numeric \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_numeric.h \
+ D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cassert \
+ D:/mingw-w64/mingw64/x86_64-w64-mingw32/include/assert.h \
  C:\Users\Malloc\Desktop\plus_tetris\utils.h \
  C:\Users\Malloc\Desktop\plus_tetris\terminal.h \
+ C:\Users\Malloc\Desktop\plus_tetris\tetromino.h \
  C:\Users\Malloc\Desktop\plus_tetris\game.h \
- C:\Users\Malloc\Desktop\plus_tetris\tetromino.h
+ C:\Users\Malloc\Desktop\plus_tetris\piece.h

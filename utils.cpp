@@ -13,9 +13,8 @@ int utils::getFPS(int &frame_count)
         begin = end;
     }
     terminal::reset();
-    terminal::setCursor(1, 1);
+    terminal::setCursor(1, 7);
     terminal::setColor(terminal::Color::White, true);
-    terminal::write("FPS: ");
     terminal::write(fps);
     terminal::write(' ');
     return fps;
@@ -73,4 +72,13 @@ void utils::setDuration(int interval)
 int utils::b2c(int val)
 {
     return val * 2 - 1;
+}
+
+int utils::getScore(int score)
+{
+    terminal::reset();
+    terminal::setCursor(3, 9);
+    terminal::setColor(terminal::Color::White, true);
+    terminal::write(score);
+    return score;
 }

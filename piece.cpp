@@ -30,7 +30,14 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
             // *playfield = Matrix(10, std::vector<int>(22, 0));
             // the above code is the mother-fucking code
             // The second operation will not work
+            terminal::reset();
+            terminal::setCursor(1, 40);
+            int color_type = utils::generateRandomNumber(1, 7);
+            terminal::setColor((terminal::Color)color_type);
+            terminal::fwrite("You are failed");
+
             std::fill(row.begin(), row.end(), 0);
+            score = 0;
         }
     }
     return Piece(t, xo, yo, 0);
@@ -122,6 +129,7 @@ void Piece::clearRows()
         if (std::all_of(playfield->begin(), playfield->end(), [y](const auto &row)
                         { return row[y] > 0; }))
         {
+            score++; // Increase the score: clear 1 line = 1 point
             // Clear the row...
             for (int y1 = y; y1 < playfield->front().size(); y1++)
             {
@@ -190,3 +198,4 @@ void Piece::move(int dx, int dy)
 
 Matrix *Piece::playfield = nullptr;
 std::atomic<bool> *Piece::running_flag = nullptr;
+int Piece::score = 0;

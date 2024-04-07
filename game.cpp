@@ -70,6 +70,7 @@ void Game::render(int top, int left)
     static int count = 0;
     count++;
     utils::getFPS(count);
+    utils::getScore(piece.score);
     int n = (*frame)[0].size();
     for (int i = 0; i < (*frame).size(); i++)
     {
@@ -104,7 +105,8 @@ void Game::render(int top, int left)
 void Game::end()
 {
     terminal::reset();
-    terminal::setCursor(1, 1);
+    terminal::setCursor(8, 11);
+    terminal::setStyle(terminal::Style::Bold);
     terminal::setColor(terminal::Color::Red);
     terminal::fwrite("Game Over! Press any key to exit...");
     system("pause > nul");
@@ -136,8 +138,22 @@ void Game::setDropInterval(int interval)
 
 void Game::setWindow(int top, int left, int height, int width, const std::string &title)
 {
-
-    terminal::setColor(terminal::Color::White);
+    terminal::reset();
+    terminal::setCursor(1, 1);
+    terminal::setColor(terminal::Color::White, true);
+    terminal::fwrite("FPS: ");
+    terminal::setCursor(3, 1);
+    terminal::fwrite("Score: ");
+    terminal::setCursor(6, 1);
+    terminal::fwrite("w  -->  \u21bb");
+    terminal::setCursor(7, 1);
+    terminal::fwrite("s  -->  \u2193");
+    terminal::setCursor(8, 1);
+    terminal::fwrite("a  -->  \u2190");
+    terminal::setCursor(9, 1);
+    terminal::fwrite("d  -->  \u2192");
+    terminal::setCursor(10, 1);
+    terminal::fwrite("\u2423  --> \u23EC");
     terminal::setCursor(top, utils::b2c(left));
     terminal::write(" ┌");
     for (int i = 0; i < width; i++)

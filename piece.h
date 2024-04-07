@@ -31,6 +31,7 @@ public:
     int getColor() const;
 
     static Matrix *playfield;
+    static int score;
 
 private:
     void clearRows();

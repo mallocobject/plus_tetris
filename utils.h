@@ -10,4 +10,5 @@ namespace utils
     int generateRandomNumber(int min, int max);
     void setDuration(int interval);
     int b2c(int val);
+    int getScore(int score);
 } // namespace utilities

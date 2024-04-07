@@ -141,6 +141,9 @@ CMakeFiles/plus_tetris.dir/piece.cpp.obj: \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_vector.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_bvector.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/vector.tcc \
+ D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/atomic \
+ D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/atomic_base.h \
+ D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/atomic_lockfree_defines.h \
  C:\Users\Malloc\Desktop\plus_tetris\define.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/chrono \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ratio \
@@ -164,10 +167,7 @@ CMakeFiles/plus_tetris.dir/piece.cpp.obj: \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/refwrap.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ext/aligned_buffer.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/shared_ptr_atomic.h \
- D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/atomic_base.h \
- D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/atomic_lockfree_defines.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward/auto_ptr.h \
- D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/atomic \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/unordered_map \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/hashtable.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/hashtable_policy.h \

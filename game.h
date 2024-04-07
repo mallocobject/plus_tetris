@@ -35,8 +35,8 @@ public:
 
     static std::atomic<bool> running_flag;
     static Piece piece;
-    static Matrix playfield;
-    static Matrix frame;
+    static Matrix *playfield;
+    static Matrix *frame;
     static int duration;
     static std::unordered_map<char, std::function<void()>> key_map;
 

@@ -180,8 +180,8 @@ CMakeFiles/plus_tetris.dir/game.cpp.obj: \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_heap.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/uniform_int_dist.h \
  C:\Users\Malloc\Desktop\plus_tetris\piece.h \
- C:\Users\Malloc\Desktop\plus_tetris\define.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/atomic \
+ C:\Users\Malloc\Desktop\plus_tetris\define.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/map \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_tree.h \
  D:/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_map.h \

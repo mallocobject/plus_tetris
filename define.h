@@ -16,6 +16,7 @@
 #include <conio.h>
 #include <random>
 #include <cassert>
+#include <limits>
 #include "utils.h"
 #include "terminal.h"
 #include "tetromino.h"

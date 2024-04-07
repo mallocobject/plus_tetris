@@ -56,6 +56,14 @@ void Piece::rotate()
     if (isValid(xo, yo, (index + 1) % 4))
         index = (index + 1) % 4;
 }
+void Piece::fastDrop()
+{
+    // 这里的false标志位很重要，如果传递true则要等下一个循环，转移键盘响应piece
+    while (isValid(xo, yo - 1, index, false))
+    {
+        this->yo--;
+    }
+}
 // isShadow is a flag to indicate whether the piece is a shadow piece
 // 函数的默认参数值应该只在函数声明中给出，不应在函数定义中再次给出
 bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
@@ -64,6 +72,7 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
     for (int i = 0; i < 4; i++)
     {
         auto [dx, dy] = getTetroPosition(i, _index);
+        int color = getColor();
 
         // if the position is out of bounds
         if (xo + dx < 0 || xo + dx >= (playfield->size()))
@@ -72,8 +81,7 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
         {
             if (!isShadow)
             {
-                yo++;
-                int color = getColor();
+                yo++; // recover the position
                 for (int i = 0; i < 4; i++)
                 {
                     auto [dx, dy] = this->getTetroPosition(i, _index);
@@ -88,19 +96,49 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
         {
             if (!isShadow)
             {
-                yo++;
-                int color = getColor();
+                yo++; // recover the position
                 for (int i = 0; i < 4; i++)
                 {
                     auto [dx, dy] = this->getTetroPosition(i, _index);
                     (*playfield)[xo + dx][yo + dy] = color; // color as value
                 }
+
+                // clear rows
+                clearRows();
+
                 *this = generatePiece(playfield, running_flag);
             }
             return false;
         }
     }
     return true;
+}
+
+void Piece::clearRows()
+{
+    for (int y = 2; y < playfield->front().size(); y++)
+    {
+        // Check if the row is full
+        if (std::all_of(playfield->begin(), playfield->end(), [y](const auto &row)
+                        { return row[y] > 0; }))
+        {
+            // Clear the row...
+            for (int y1 = y; y1 < playfield->front().size(); y1++)
+            {
+                for (int x = 0; x < playfield->size(); x++)
+                {
+                    if (y1 == playfield->front().size() - 1)
+                    {
+                        (*playfield)[x][y1] = 0;
+                    }
+                    else
+                    {
+                        (*playfield)[x][y1] = (*playfield)[x][y1 + 1];
+                    }
+                }
+            }
+        }
+    }
 }
 
 std::pair<int, int> Piece::getTetroPosition(int offset, int _index)
@@ -137,15 +175,8 @@ bool Piece::isPositionFree(int xo, int yo, tetromino::Tetromino t)
     {
         return false;
     }
-    for (int i = 1; i < 4; i++)
-    {
-        int dx = t[0][i].first;
-        if ((*playfield)[xo + dx][yo] > 0)
-        {
-            return false;
-        }
-    }
-    return true;
+    return !std::any_of(t[0].begin() + 1, t[0].end(), [xo, yo](const auto &pos)
+                        { return (*playfield)[xo + pos.first][yo] > 0; });
 }
 
 void Piece::move(int dx, int dy)

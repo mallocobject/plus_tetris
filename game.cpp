@@ -13,6 +13,11 @@ Game::~Game()
         delete frame;
         frame = nullptr;
     }
+    if (!key_map)
+    {
+        delete key_map;
+        key_map = nullptr;
+    }
     // std::cout << "Game Over!" << std::endl;
 }
 
@@ -84,7 +89,7 @@ void Game::render(int top, int left)
             else if ((*frame)[i][j] < 0)
             {
                 terminal::setColor((terminal::Color)(-(*frame)[i][j]), true);
-                terminal::write("\u2593\u2593");
+                terminal::write("\u25fb");
             }
             // normal block
             else
@@ -182,31 +187,33 @@ void Game::right()
     piece.right();
 }
 
+void Game::fastDrop()
+{
+    piece.fastDrop();
+}
+
 void Game::setSignalHandler()
 {
-    key_map = {
-        {'w', rotate},
-        {'s', down},
-        {'a', left},
-        {'d', right},
-    };
+    key_map = new std::unordered_map<char, std::function<void()>>();
+    (*key_map)['w'] = rotate;
+    (*key_map)['s'] = down;
+    (*key_map)['a'] = left;
+    (*key_map)['d'] = right;
+    (*key_map)[' '] = fastDrop;
+    (*key_map)['q'] = []()
+    { running_flag = false; };
 }
 
 void Game::handleSignals()
 {
-    while (true)
+    while (running_flag)
     {
         if (_kbhit)
         {
             char ch = _getch();
-            if (ch == 'q')
+            if (key_map->find(ch) != key_map->end())
             {
-                running_flag = false;
-                break;
-            }
-            if (key_map.find(ch) != key_map.end())
-            {
-                key_map[ch]();
+                key_map->at(ch)();
             }
         }
     }
@@ -217,9 +224,4 @@ Matrix *Game::playfield = new std::vector<std::vector<int>>(10, std::vector<int>
 Matrix *Game::frame = new std::vector<std::vector<int>>(10, std::vector<int>(22, 0));
 Piece Game::piece = Piece::generatePiece(playfield, &running_flag);
 int Game::duration = 500; // 500ms
-std::unordered_map<char, std::function<void()>> Game::key_map = {
-    {'w', rotate},
-    {'s', down},
-    {'a', left},
-    {'d', right},
-};
+std::unordered_map<char, std::function<void()>> *Game::key_map = nullptr;

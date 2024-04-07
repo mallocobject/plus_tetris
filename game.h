@@ -31,6 +31,7 @@ public:
     static void down();
     static void left();
     static void right();
+    static void fastDrop();
     static void setSignalHandler();
 
     static std::atomic<bool> running_flag;
@@ -38,7 +39,7 @@ public:
     static Matrix *playfield;
     static Matrix *frame;
     static int duration;
-    static std::unordered_map<char, std::function<void()>> key_map;
+    static std::unordered_map<char, std::function<void()>> *key_map;
 
 private:
     static void handleSignals();

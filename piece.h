@@ -22,6 +22,7 @@ public:
     void left();
     void right();
     void rotate();
+    void fastDrop();
     bool isValid(int xo, int yo, int _index, bool isShadow = false);
     std::pair<int, int> getTetroPosition(int offset, int _index);
     std::pair<int, int> getPosition();
@@ -32,6 +33,7 @@ public:
     static Matrix *playfield;
 
 private:
+    void clearRows();
     static bool isPositionFree(int xo, int yo, tetromino::Tetromino t);
     void move(int dx, int dy);
     tetromino::Tetromino t;

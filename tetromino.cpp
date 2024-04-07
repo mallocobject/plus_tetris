@@ -5,6 +5,7 @@
 // {center position}, {relative position}, ...
 // 直角坐标系
 
+// useless functon
 void tetromino::draw(tetromino::Tetromino_ref matrix, int top, int left, int index)
 {
     terminal::reset();

@@ -10,6 +10,8 @@ namespace tetromino
     using Tetromino_ref = std::array<std::array<std::pair<int, int>, 4>, 4> &;
     using namespace terminal;
 
+    // 顺时针旋转
+    // 0 -> R -> 2 -> L -> 0
     static const tetromino::Tetromino I = {{{{{'I', (int)Color::Red}, {-1, 0}, {1, 0}, {2, 0}}},   // 0
                                             {{{'I', (int)Color::Red}, {0, 1}, {0, -1}, {0, -2}}},  // R
                                             {{{'I', (int)Color::Red}, {2, 0}, {-1, 0}, {1, 0}}},   // 2
@@ -45,6 +47,6 @@ namespace tetromino
                                             {{{'Z', (int)Color::White}, {-1, 0}, {0, -1}, {1, -1}}},   // 2
                                             {{{'Z', (int)Color::White}, {-1, -1}, {-1, 0}, {0, 1}}}}}; // L
 
-    // 顺时针旋转
+    // useless functon
     void draw(tetromino::Tetromino_ref matrix, int top, int left, int index);
 } // namespace tetromino

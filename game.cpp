@@ -90,7 +90,7 @@ void Game::render(int top, int left)
             else if ((*frame)[i][j] < 0)
             {
                 terminal::setColor((terminal::Color)(-(*frame)[i][j]), true);
-                terminal::write("\u25fb");
+                terminal::write("\u25fb ");
             }
             // normal block
             else

@@ -45,7 +45,7 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
 
 void Piece::down()
 {
-    move(0, -1);
+    move(0, -1, true);
 }
 
 void Piece::left()
@@ -66,14 +66,14 @@ void Piece::rotate()
 void Piece::fastDrop()
 {
     // 这里的false标志位很重要，如果传递true则要等下一个循环，转移键盘响应piece
-    while (isValid(xo, yo - 1, index, false))
+    while (isValid(xo, yo - 1, index, false, true))
     {
         this->yo--;
     }
 }
 // isShadow is a flag to indicate whether the piece is a shadow piece
 // 函数的默认参数值应该只在函数声明中给出，不应在函数定义中再次给出
-bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
+bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
 {
     // int cnt = 0;
     for (int i = 0; i < 4; i++)
@@ -81,7 +81,7 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
         auto [dx, dy] = getTetroPosition(i, _index);
         int color = getColor();
 
-        // if the position is out of bounds
+        // if the position is out of or exist block in the horizontal direction
         if (xo + dx < 0 || xo + dx >= (playfield->size()))
             return false;
         else if (yo + dy < 2)
@@ -98,10 +98,10 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
             }
             return false;
         }
-        // if the position is occupied
+        // if the below position is occupied
         else if (yo + dy < (*playfield)[0].size() && (*playfield)[xo + dx][yo + dy] > 0)
         {
-            if (!isShadow)
+            if (!isShadow && isDown)
             {
                 yo++; // recover the position
                 for (int i = 0; i < 4; i++)
@@ -123,7 +123,7 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow)
 
 void Piece::clearRows()
 {
-    for (int y = 2; y < playfield->front().size(); y++)
+    for (int y = playfield->front().size() - 1; y >= 2; y--)
     {
         // Check if the row is full
         if (std::all_of(playfield->begin(), playfield->end(), [y](const auto &row)
@@ -187,9 +187,9 @@ bool Piece::isPositionFree(int xo, int yo, tetromino::Tetromino t)
                         { return (*playfield)[xo + pos.first][yo] > 0; });
 }
 
-void Piece::move(int dx, int dy)
+void Piece::move(int dx, int dy, bool isDown)
 {
-    if (isValid(xo + dx, yo + dy, index))
+    if (isValid(xo + dx, yo + dy, index, false, isDown))
     {
         xo += dx;
         yo += dy;

@@ -6,11 +6,22 @@ Piece::Piece(tetromino::Tetromino t, int xo, int yo, int index, Matrix *playfiel
 
 Piece Piece::generatePiece(Matrix *playfield)
 {
-    tetromino::Tetromino t = tetromino::J;
-    int index = 1;
-    int xo = 5;
-    int yo = 22;
-    return Piece(t, xo, yo, index, playfield);
+    static std::unordered_map<int, tetromino::Tetromino> tetrominos = {
+        {0, tetromino::I},
+        {1, tetromino::J},
+        {2, tetromino::L},
+        {3, tetromino::O},
+        {4, tetromino::S},
+        {5, tetromino::T},
+        {6, tetromino::Z},
+    };
+    int tetromino_category = utils::generateRandomNumber(0, 6);
+    tetromino::Tetromino t = tetrominos[tetromino_category];
+    int xo = utils::generateRandomNumber(1, 8);
+    if (tetromino_category == 0 && xo == 8)     // I
+        xo = utils::generateRandomNumber(1, 7); // 7
+    int yo = 21;
+    return Piece(t, xo, yo, 0, playfield);
 }
 
 void Piece::down()
@@ -30,30 +41,31 @@ void Piece::right()
 
 void Piece::rotate()
 {
-    index = (index + 1) % 4;
+    if (isValid(xo, yo, (index + 1) % 4))
+        index = (index + 1) % 4;
 }
 
-bool Piece::isValid(int xo, int yo)
+bool Piece::isValid(int xo, int yo, int _index)
 {
     for (int i = 0; i < 4; i++)
     {
-        auto [dx, dy] = getTetroPosition(i);
+        auto [dx, dy] = getTetroPosition(i, _index);
         // if the position is out of bounds
-        if (xo + dx < 0 || xo + dx >= (playfield->size()) || yo + dy < 2 || yo + dy >= (*playfield)[0].size())
+        if (xo + dx < 0 || xo + dx >= (playfield->size()) || yo + dy < 2 || yo + dy >= (*playfield)[0].size()) //
             return false;
         // if the position is occupied
-        if ((*playfield)[xo + dx][yo + dy] > 0)
+        if (yo + dy < playfield[0].size() && (*playfield)[xo + dx][yo + dy] > 0)
             return false;
     }
     return true;
 }
 
-std::pair<int, int> Piece::getTetroPosition(int p)
+std::pair<int, int> Piece::getTetroPosition(int offset, int _index)
 {
-    assert(p >= 0 && p < 4);
-    if (p == 0)
+    assert(offset >= 0 && offset < 4);
+    if (offset == 0)
         return {0, 0};
-    return t[index][p];
+    return t[_index][offset];
 }
 
 std::pair<int, int> Piece::getPosition()
@@ -78,7 +90,7 @@ int Piece::getColor() const
 
 void Piece::move(int dx, int dy)
 {
-    if (isValid(xo + dx, yo + dy))
+    if (isValid(xo + dx, yo + dy, index))
     {
         xo += dx;
         yo += dy;

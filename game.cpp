@@ -33,18 +33,18 @@ void Game::update()
     // normal block
     for (int i = 0; i < 4; i++)
     {
-        auto [dx, dy] = piece.getTetroPosition(i);
+        auto [dx, dy] = piece.getTetroPosition(i, index);
         frame[xo + dx][yo + dy] = t[index][0].second; // color as value
     }
 
     // shadow block
-    while (piece.isValid(xo, yo - 1))
+    while (piece.isValid(xo, yo - 1, index))
     {
         yo--;
     }
     for (int i = 0; i < 4; i++)
     {
-        auto [dx, dy] = piece.getTetroPosition(i);
+        auto [dx, dy] = piece.getTetroPosition(i, index);
         if (frame[xo + dx][yo + dy] == 0)
             frame[xo + dx][yo + dy] = -t[index][0].second; // color as value
     }
@@ -68,17 +68,17 @@ void Game::render(int top, int left)
                 // terminal::setColor(terminal::Color::Green, true);
                 terminal::write("\u30fb");
             }
-            // normal block
-            else if (frame[i][j] > 0)
-            {
-                terminal::setColor((terminal::Color)frame[i][j], false);
-                terminal::write("  ");
-            }
             // shadow block
-            else
+            else if (frame[i][j] < 0)
             {
                 terminal::setColor((terminal::Color)(-frame[i][j]), true);
                 terminal::write("\u2593\u2593");
+            }
+            // normal block
+            else
+            {
+                terminal::setColor((terminal::Color)frame[i][j], false);
+                terminal::write("  ");
             }
         }
     }
@@ -86,13 +86,12 @@ void Game::render(int top, int left)
 
 void Game::end()
 {
-    endl(std::cout);
     terminal::setCursor(3, 1);
     terminal::setStyle(terminal::Style::Bold);
     terminal::setColor(terminal::Color::Red);
-    terminal::fwrite("Game Over!\n");
     // system("pause"); // 无pause
     terminal::showCursor();
+    system("chcp 936");
     terminal::clearScreen();
     terminal::reset();
     terminal::setCursor(1, 1);

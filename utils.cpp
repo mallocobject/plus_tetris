@@ -40,8 +40,9 @@ bool utils::checkDuration(int interval)
 
 int utils::generateRandomNumber(int min, int max)
 {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
+    // 使用当前时间作为种子
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    static std::mt19937 gen(seed);
     std::uniform_int_distribution<int> dis(min, max);
     return dis(gen);
 }

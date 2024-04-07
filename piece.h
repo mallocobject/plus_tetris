@@ -21,8 +21,8 @@ public:
     void left();
     void right();
     void rotate();
-    bool isValid(int xo, int yo);
-    std::pair<int, int> getTetroPosition(int p);
+    bool isValid(int xo, int yo, int _index);
+    std::pair<int, int> getTetroPosition(int offset, int _index);
     std::pair<int, int> getPosition();
     int getIndex() const;
     tetromino::Tetromino getTetromino() const;

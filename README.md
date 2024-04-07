@@ -1,3 +1,3 @@
-run tetris on the terminal
-silky and cool
+run tetris on the terminal  
+silky and cool  
 The kicking wall feature needs to be updated...

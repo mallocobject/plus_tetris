@@ -6,6 +6,7 @@
 // 直角坐标系
 
 // useless functon
+// 写着玩hhhh
 void tetromino::draw(tetromino::Tetromino_ref matrix, int top, int left, int index)
 {
     terminal::reset();

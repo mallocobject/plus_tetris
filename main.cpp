@@ -3,18 +3,18 @@
 
 int main()
 {
-    Game gm;
-    gm.start();
-    gm.setDropInterval(500);
-    gm.setWindow(1, 7, 20, 10, "tetris");
-    std::thread th = gm.runSubThread();
-    while (gm.running_flag)
+    Game gm;                              // 创建一个 Game 对象
+    gm.start();                           // 开始游戏
+    gm.setDropInterval(500);              // 设置方块下落的间隔时间为 500 毫秒
+    gm.setWindow(1, 7, 20, 10, "tetris"); // 设置游戏窗口的位置和大小，以及窗口的标题
+    std::thread th = gm.runSubThread();   // 在一个新的线程中监听键盘输入
+    while (gm.running_flag)               // 当游戏正在运行时，原子变量 running_flag防止读写冲突
     {
-        gm.update();
-        gm.render(2, 8);
-        gm.setDuration(10); // 10ms
+        gm.update();        // 更新游戏状态
+        gm.render(2, 8);    // 渲染游戏画面
+        gm.setDuration(10); // 设置每一帧的持续时间为 10 毫秒
     }
-    th.join();
-    gm.end();
+    th.join(); // 等待游戏的主循环线程结束
+    gm.end();  // 结束游戏
     return 0;
 }

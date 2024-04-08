@@ -73,6 +73,7 @@ void Piece::fastDrop()
 }
 // isShadow is a flag to indicate whether the piece is a shadow piece
 // 函数的默认参数值应该只在函数声明中给出，不应在函数定义中再次给出
+// 这个函数只有我和上帝看懂，或许在一周后，怕是只有上帝能看懂了
 bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
 {
     // int cnt = 0;
@@ -81,11 +82,14 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
         auto [dx, dy] = getTetroPosition(i, _index);
         int color = getColor();
 
-        // if the position is out of or exist block in the horizontal direction
+        // if the position is out of the boundary
         if (xo + dx < 0 || xo + dx >= (playfield->size()))
             return false;
         else if (yo + dy < 2)
         {
+            // 至于这里为什么不能使用isShadow，我也不知道
+            // 反正用了就会出问题
+            // that's all
             if (!isShadow)
             {
                 yo++; // recover the position
@@ -94,6 +98,10 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
                     auto [dx, dy] = this->getTetroPosition(i, _index);
                     (*playfield)[xo + dx][yo + dy] = color; // color as value
                 }
+
+                // clear the rows
+                // only when the piece is freezed, we can clear the rows
+                clearRows();
                 *this = generatePiece(playfield, running_flag);
             }
             return false;
@@ -101,6 +109,8 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
         // if the below position is occupied
         else if (yo + dy < (*playfield)[0].size() && (*playfield)[xo + dx][yo + dy] > 0)
         {
+            // if the piece is not a shadow piece and is moving down
+            // isDown is a flag to indicate whether the piece is moving down
             if (!isShadow && isDown)
             {
                 yo++; // recover the position
@@ -110,9 +120,8 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
                     (*playfield)[xo + dx][yo + dy] = color; // color as value
                 }
 
-                // clear rows
+                // clear the rows
                 clearRows();
-
                 *this = generatePiece(playfield, running_flag);
             }
             return false;

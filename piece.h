@@ -4,6 +4,7 @@
 #include "terminal.h"
 #include <vector>
 #include <atomic>
+#include <unordered_map>
 
 class Piece
 {
@@ -37,8 +38,11 @@ private:
     void clearRows();
     static bool isPositionFree(int xo, int yo, tetromino::Tetromino t);
     void move(int dx, int dy, bool isDown = false);
+    void rotateTest(int xo, int yo);
+    bool SpecializedIsValid(int xo, int yo, int _index);
     tetromino::Tetromino t;
     int xo, yo; // 直角坐标系
     int index;
     static std::atomic<bool> *running_flag;
+    static std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> tetro_map;
 };

@@ -21,6 +21,15 @@ Game::~Game()
     // std::cout << "Game Over!" << std::endl;
 }
 
+Game *Game::getInstance()
+{
+    if (gm == nullptr)
+    {
+        gm = new Game();
+    }
+    return gm;
+}
+
 void Game::start()
 {
     terminal::setCursor(1, 1);
@@ -90,7 +99,7 @@ void Game::render(int top, int left)
             else if ((*frame)[i][j] < 0)
             {
                 terminal::setColor((terminal::Color)(-(*frame)[i][j]), true);
-                terminal::write("\u25fb ");
+                terminal::write("\u25a2 ");
             }
             // normal block
             else
@@ -115,6 +124,7 @@ void Game::end()
     terminal::showCursor();
     terminal::reset();
     flush(std::cout);
+    delete gm; // delete instance
 }
 
 std::thread Game::runSubThread()
@@ -153,7 +163,9 @@ void Game::setWindow(int top, int left, int height, int width, const std::string
     terminal::setCursor(9, 1);
     terminal::fwrite("d  -->  \u2192");
     terminal::setCursor(10, 1);
-    terminal::fwrite("\u2423  --> \u23EC");
+    terminal::fwrite("\u2420  -->  \u21af");
+    terminal::setCursor(11, 1);
+    terminal::fwrite("q  -->  \u292c");
     terminal::setCursor(top, utils::b2c(left));
     terminal::write(" ┌");
     for (int i = 0; i < width; i++)
@@ -241,3 +253,5 @@ Matrix *Game::frame = new std::vector<std::vector<int>>(10, std::vector<int>(22,
 Piece Game::piece = Piece::generatePiece(playfield, &running_flag);
 int Game::duration = 500; // 500ms
 std::unordered_map<char, std::function<void()>> *Game::key_map = nullptr;
+
+Game *Game::gm = nullptr;

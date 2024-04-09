@@ -14,7 +14,7 @@ namespace tetromino
     // 0 -> R -> 2 -> L -> 0
     static const tetromino::Tetromino I = {{{{{'I', (int)Color::Red}, {-1, 0}, {1, 0}, {2, 0}}},   // 0
                                             {{{'I', (int)Color::Red}, {0, 1}, {0, -1}, {0, -2}}},  // R
-                                            {{{'I', (int)Color::Red}, {2, 0}, {-1, 0}, {1, 0}}},   // 2
+                                            {{{'I', (int)Color::Red}, {-2, 0}, {-1, 0}, {1, 0}}},  // 2
                                             {{{'I', (int)Color::Red}, {0, 2}, {0, 1}, {0, -1}}}}}; // L
 
     static const tetromino::Tetromino J = {{{{{'J', (int)Color::Blue}, {-1, 0}, {-1, 1}, {1, 0}}},    // 0
@@ -24,7 +24,7 @@ namespace tetromino
 
     static const tetromino::Tetromino L = {{{{{'L', (int)Color::Cyan}, {-1, 0}, {1, 0}, {1, 1}}},    // 0
                                             {{{'L', (int)Color::Cyan}, {0, 1}, {0, -1}, {1, -1}}},   // R
-                                            {{{'L', (int)Color::Cyan}, {1, 0}, {-1, 0}, {-1, 1}}},   // 2
+                                            {{{'L', (int)Color::Cyan}, {1, 0}, {-1, 0}, {-1, -1}}},  // 2
                                             {{{'L', (int)Color::Cyan}, {0, 1}, {0, -1}, {-1, 1}}}}}; // L
 
     static const tetromino::Tetromino O = {{{{{'O', (int)Color::Green}, {0, 1}, {1, 0}, {1, 1}}},     // 0
@@ -49,4 +49,22 @@ namespace tetromino
 
     // useless functon
     void draw(tetromino::Tetromino_ref matrix, int top, int left, int index);
+
+    struct TetrominoHash
+    {
+        std::size_t operator()(Tetromino const &t) const noexcept
+        {
+            std::size_t seed = 0;
+            for (const auto &row : t)
+            {
+                for (const auto &element : row)
+                {
+                    seed ^= std::hash<int>{}(element.first) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+                    seed ^= std::hash<int>{}(element.second) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+                }
+            }
+            return seed;
+        }
+    };
+
 } // namespace tetromino

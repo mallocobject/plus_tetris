@@ -15,8 +15,13 @@ struct Game
 {
 public:
     ~Game();
+    Game(const Game &) = delete;
+    Game &operator=(const Game &) = delete;
+    Game(Game &&) = delete;
+    Game &operator=(Game &&) = delete;
 
     using Matrix = std::vector<std::vector<int>>;
+    static Game *getInstance();
 
     static void start();
     static void update();
@@ -41,6 +46,10 @@ public:
     static int duration;
     static std::unordered_map<char, std::function<void()>> *key_map;
 
+    static Game *gm;
+
 private:
+    Game() = default;
+
     static void handleSignals();
 };

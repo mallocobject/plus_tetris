@@ -34,7 +34,7 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
             terminal::setCursor(1, 40);
             int color_type = utils::generateRandomNumber(1, 7);
             terminal::setColor((terminal::Color)color_type);
-            terminal::fwrite("You are failed");
+            terminal::fwrite("You are failed!");
 
             std::fill(row.begin(), row.end(), 0);
             score = 0;
@@ -61,8 +61,55 @@ void Piece::right()
 void Piece::rotate()
 {
     if (isValid(xo, yo, (index + 1) % 4))
+    {
         index = (index + 1) % 4;
+        return;
+    }
+    else if (t != tetromino::O)
+    {
+        rotateTest(xo, yo);
+    }
 }
+
+void Piece::rotateTest(int xo, int yo)
+{
+    for (const auto &p : tetro_map[t][index])
+    {
+        auto [dx, dy] = p;
+        if (SpecializedIsValid(xo + dx, yo + dy, (index + 1) % 4))
+        {
+            this->xo += dx;
+            this->yo += dy;
+            index = (index + 1) % 4;
+            return;
+        }
+    }
+}
+
+bool Piece::SpecializedIsValid(int xo, int yo, int _index)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        auto [dx, dy] = getTetroPosition(i, _index);
+        int color = getColor();
+
+        // if the position is out of the boundary
+        if (xo + dx < 0 || xo + dx >= (playfield->size()))
+        {
+            return false;
+        }
+        else if (yo + dy < 2)
+        {
+            return false;
+        }
+        else if (yo + dy < (*playfield)[0].size() && (*playfield)[xo + dx][yo + dy] > 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 void Piece::fastDrop()
 {
     // 这里的false标志位很重要，如果传递true则要等下一个循环，转移键盘响应piece
@@ -208,3 +255,29 @@ void Piece::move(int dx, int dy, bool isDown)
 Matrix *Piece::playfield = nullptr;
 std::atomic<bool> *Piece::running_flag = nullptr;
 int Piece::score = 0;
+
+std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> Piece::tetro_map = {
+    {tetromino::I, {{{-2, 0}, {1, 0}, {-2, -1}, {1, 2}},     // 0 - R
+                    {{-1, 0}, {2, 0}, {-1, 2}, {2, -1}},     // R - 2
+                    {{2, 0}, {-1, 0}, {2, 1}, {-1, -2}},     // 2 - L
+                    {{1, 0}, {-2, 0}, {1, -2}, {-2, 1}}}},   // L - 0
+    {tetromino::J, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+    {tetromino::L, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+    {tetromino::S, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+    {tetromino::T, {{{-1, 0}, {-1, 1}, {0, 0}, {-1, -2}},    // 0 - R
+                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                    {{1, 0}, {0, 0}, {0, -2}, {1, -2}},      // 2 - L
+                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+    {tetromino::Z, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}}}; // L - 0

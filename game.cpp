@@ -40,7 +40,8 @@ void Game::start()
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
     // frame = playfield;
-    setSignalHandler();
+    setSignalHandler();    // set signal handler
+    Piece::initTetroMap(); // init tetro_map
 }
 
 void Game::update()
@@ -124,7 +125,12 @@ void Game::end()
     terminal::showCursor();
     terminal::reset();
     flush(std::cout);
-    delete gm; // delete instance
+    if (gm)
+    {
+        delete gm; // delete instance
+        gm = nullptr;
+    }
+    Piece::deleteTetroMap(); // delete tetro_map
 }
 
 std::thread Game::runSubThread()

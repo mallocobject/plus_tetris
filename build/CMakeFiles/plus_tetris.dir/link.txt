@@ -1,3 +1,0 @@
-D:\Users\cmake\bin\cmake.exe -E rm -f CMakeFiles\plus_tetris.dir/objects.a
-D:\mingw-w64\mingw64\bin\ar.exe qc CMakeFiles\plus_tetris.dir/objects.a @CMakeFiles\plus_tetris.dir\objects1.rsp
-D:\mingw-w64\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\plus_tetris.dir/objects.a -Wl,--no-whole-archive -o plus_tetris.exe -Wl,--out-implib,libplus_tetris.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\plus_tetris.dir\linkLibs.rsp

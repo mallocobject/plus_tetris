@@ -30,11 +30,11 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
             // *playfield = Matrix(10, std::vector<int>(22, 0));
             // the above code is the mother-fucking code
             // The second operation will not work
-            terminal::reset();
-            terminal::setCursor(1, 40);
-            int color_type = utils::generateRandomNumber(1, 7);
-            terminal::setColor((terminal::Color)color_type);
-            terminal::fwrite("You are failed!");
+            // terminal::reset();
+            // terminal::setCursor(1, 40);
+            // int color_type = utils::generateRandomNumber(1, 7);
+            // terminal::setColor((terminal::Color)color_type);
+            // terminal::fwrite("You are failed!");
 
             std::fill(row.begin(), row.end(), 0);
             score = 0;
@@ -73,7 +73,7 @@ void Piece::rotate()
 
 void Piece::rotateTest(int xo, int yo)
 {
-    for (const auto &p : tetro_map[t][index])
+    for (const auto &p : tetro_map->at(t)[index])
     {
         auto [dx, dy] = p;
         if (SpecializedIsValid(xo + dx, yo + dy, (index + 1) % 4))
@@ -233,6 +233,44 @@ int Piece::getColor() const
     return t[index][0].second;
 }
 
+void Piece::initTetroMap()
+{
+    tetro_map = new std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash>{
+        {tetromino::I, {{{-2, 0}, {1, 0}, {-2, -1}, {1, 2}},     // 0 - R
+                        {{-1, 0}, {2, 0}, {-1, 2}, {2, -1}},     // R - 2
+                        {{2, 0}, {-1, 0}, {2, 1}, {-1, -2}},     // 2 - L
+                        {{1, 0}, {-2, 0}, {1, -2}, {-2, 1}}}},   // L - 0
+        {tetromino::J, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                        {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                        {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                        {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+        {tetromino::L, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                        {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                        {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                        {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+        {tetromino::S, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                        {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                        {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                        {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+        {tetromino::T, {{{-1, 0}, {-1, 1}, {0, 0}, {-1, -2}},    // 0 - R
+                        {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                        {{1, 0}, {0, 0}, {0, -2}, {1, -2}},      // 2 - L
+                        {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
+        {tetromino::Z, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
+                        {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
+                        {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
+                        {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}}}; // L - 0
+}
+
+void Piece::deleteTetroMap()
+{
+    if (tetro_map)
+    {
+        delete tetro_map;
+        tetro_map = nullptr;
+    }
+}
+
 bool Piece::isPositionFree(int xo, int yo, tetromino::Tetromino t)
 {
     if ((*playfield)[xo][yo] > 0)
@@ -256,28 +294,4 @@ Matrix *Piece::playfield = nullptr;
 std::atomic<bool> *Piece::running_flag = nullptr;
 int Piece::score = 0;
 
-std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> Piece::tetro_map = {
-    {tetromino::I, {{{-2, 0}, {1, 0}, {-2, -1}, {1, 2}},     // 0 - R
-                    {{-1, 0}, {2, 0}, {-1, 2}, {2, -1}},     // R - 2
-                    {{2, 0}, {-1, 0}, {2, 1}, {-1, -2}},     // 2 - L
-                    {{1, 0}, {-2, 0}, {1, -2}, {-2, 1}}}},   // L - 0
-    {tetromino::J, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
-                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
-                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
-                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
-    {tetromino::L, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
-                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
-                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
-                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
-    {tetromino::S, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
-                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
-                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
-                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
-    {tetromino::T, {{{-1, 0}, {-1, 1}, {0, 0}, {-1, -2}},    // 0 - R
-                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
-                    {{1, 0}, {0, 0}, {0, -2}, {1, -2}},      // 2 - L
-                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}},  // L - 0
-    {tetromino::Z, {{{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},   // 0 - R
-                    {{1, 0}, {1, -1}, {0, 2}, {1, 2}},       // R - 2
-                    {{1, 0}, {1, 1}, {0, -2}, {1, -2}},      // 2 - L
-                    {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}}}; // L - 0
+std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *Piece::tetro_map = nullptr;

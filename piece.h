@@ -30,6 +30,8 @@ public:
     int getIndex() const;
     tetromino::Tetromino getTetromino() const;
     int getColor() const;
+    static void initTetroMap();
+    static void deleteTetroMap();
 
     static Matrix *playfield;
     static int score;
@@ -44,5 +46,5 @@ private:
     int xo, yo; // 直角坐标系
     int index;
     static std::atomic<bool> *running_flag;
-    static std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> tetro_map;
+    static std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *tetro_map;
 };

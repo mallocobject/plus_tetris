@@ -6,15 +6,16 @@ namespace terminal
 {
     enum class Color
     {
-        Default = 9,
+        Default = 59,
+        White = 231,
         Black = 0,
-        Red,
-        Green,
-        Yellow,
-        Blue,
-        Magenta,
-        Cyan,
-        White
+        Cyan = 48,
+        Blue = 21,
+        Orange = 208,
+        Yellow = 226,
+        Green = 46,
+        Purple = 93,
+        Red = 196
     };
 
     enum class Style

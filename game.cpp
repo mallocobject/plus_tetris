@@ -79,8 +79,8 @@ void Game::render(int top, int left)
 {
     static int count = 0;
     count++;
-    utils::getFPS(count);
-    utils::getScore(piece.score);
+    // utils::getFPS(count);
+    // utils::getScore(piece.score);
     int n = (*frame)[0].size();
     for (int i = 0; i < (*frame).size(); i++)
     {
@@ -152,26 +152,9 @@ void Game::setDropInterval(int interval)
     duration = interval;
 }
 
-void Game::setWindow(int top, int left, int height, int width, const std::string &title)
+void setWindow(int top, int left, int height, int width, const std::string &title, bool isCenter = false)
 {
-    terminal::reset();
-    terminal::setCursor(1, 1);
     terminal::setColor(terminal::Color::White, true);
-    terminal::fwrite("FPS: ");
-    terminal::setCursor(3, 1);
-    terminal::fwrite("Score: ");
-    terminal::setCursor(6, 1);
-    terminal::fwrite("w  -->  \u21bb");
-    terminal::setCursor(7, 1);
-    terminal::fwrite("s  -->  \u2193");
-    terminal::setCursor(8, 1);
-    terminal::fwrite("a  -->  \u2190");
-    terminal::setCursor(9, 1);
-    terminal::fwrite("d  -->  \u2192");
-    terminal::setCursor(10, 1);
-    terminal::fwrite("\u2420  -->  \u21af");
-    terminal::setCursor(11, 1);
-    terminal::fwrite("q  -->  \u292c");
     terminal::setCursor(top, utils::b2c(left));
     terminal::write(" ┌");
     for (int i = 0; i < width; i++)
@@ -196,9 +179,55 @@ void Game::setWindow(int top, int left, int height, int width, const std::string
     }
     terminal::write("┘");
 
-    terminal::setCursor(top, utils::b2c(left) + 2 + (width * 2 - title.size()) / 2);
+    if (isCenter)
+    {
+        terminal::setCursor(top, utils::b2c(left) + 2 + (width * 2 - title.size()) / 2);
+    }
+    else
+    {
+        terminal::setCursor(top, utils::b2c(left) + 1);
+    }
     terminal::setColor(terminal::Color::Green, true);
     terminal::fwrite(title);
+}
+
+void Game::setMainWindow(int top, int left, int height, int width, const std::string &title)
+{
+    setWindow(top, left, height, width, title, true);
+}
+
+void Game::setHelpWindow(int top, int left, int height, int width, const std::string &title)
+{
+    setWindow(top, left, height, width, title);
+    terminal::reset();
+    terminal::setColor(terminal::Color::White, true);
+    terminal::setCursor(9, 10);
+    terminal::fwrite("w --> \u21bb");
+    terminal::setCursor(11, 10);
+    terminal::fwrite("s --> \u2193");
+    terminal::setCursor(13, 10);
+    terminal::fwrite("a --> \u2190");
+    terminal::setCursor(15, 10);
+    terminal::fwrite("d --> \u2192");
+    terminal::setCursor(17, 10);
+    terminal::fwrite("\u2420 --> \u21af");
+    terminal::setCursor(19, 10);
+    terminal::fwrite("q --> \u292c");
+}
+
+void Game::setScoreWindow(int top, int left, int height, int width, const std::string &title)
+{
+    setWindow(top, left, height, width, title);
+}
+
+void Game::setHoldWindow(int top, int left, int height, int width, const std::string &title)
+{
+    setWindow(top, left, height, width, title);
+}
+
+void Game::setNextWindow(int top, int left, int height, int width, const std::string &title)
+{
+    setWindow(top, left, height, width, title);
 }
 
 void Game::rotate()

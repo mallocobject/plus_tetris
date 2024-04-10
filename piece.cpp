@@ -41,8 +41,33 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
         }
     }
     // 刷新hold区
+    utils::draw(t, 4, 6);
     // 刷新next区
     return Piece(t, xo, yo, 0);
+}
+
+std::pair<int, int> specialized_getTetroPosition(tetromino::Tetromino t, int offset)
+{
+    assert(offset >= 0 && offset < 4);
+    if (offset == 0)
+        return {0, 0};
+    return t[0][offset];
+}
+
+void utils::draw(tetromino::Tetromino t, int top, int left)
+{
+    terminal::reset();
+    terminal::setCursor(top - 1, utils::b2c(left - 1));
+    terminal::write("          ");
+    terminal::setCursor(top, utils::b2c(left - 1));
+    terminal::write("          ");
+    terminal::setColor((terminal::Color)t[0][0].second, false);
+    for (int i = 0; i < 4; i++)
+    {
+        auto [dx, dy] = specialized_getTetroPosition(t, i);
+        terminal::setCursor(top - dy, utils::b2c(left + dx));
+        terminal::write("  ");
+    }
 }
 
 void Piece::down()

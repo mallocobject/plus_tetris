@@ -34,7 +34,7 @@ public:
     // static void setWindow(int top, int left, int height, int width, const std::string &title);
     static void setMainWindow(int top, int left, int height, int width, const std::string &title);
     static void setHelpWindow(int top, int left, int height, int width, const std::string &title);
-    static void setScoreWindow(int top, int left, int height, int width, const std::string &title);
+    static void setFPSandScoreWindow(int top, int left, int height, int width, const std::string &title);
     static void setHoldWindow(int top, int left, int height, int width, const std::string &title);
     static void setNextWindow(int top, int left, int height, int width, const std::string &title);
     static void rotate();

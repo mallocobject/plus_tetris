@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include <mutex>
+
+extern std::mutex cout_mtx;
 
 namespace terminal
 {
@@ -47,12 +50,14 @@ namespace terminal
     template <typename T>
     void write(T &&text)
     {
+        std::lock_guard<std::mutex> lock(cout_mtx);
         std::cout << text;
     }
 
     template <typename T>
     void fwrite(T &&text)
     {
+        std::lock_guard<std::mutex> lock(cout_mtx);
         std::cout << text << std::flush;
     }
 } // namespace terminal

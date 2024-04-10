@@ -48,23 +48,11 @@ namespace tetromino
                                             {{{'Z', (int)Color::Red}, {-1, -1}, {-1, 0}, {0, 1}}}}}; // L
 
     // useless functon
-    void draw(tetromino::Tetromino_ref matrix, int top, int left, int index);
+    // void draw(tetromino::Tetromino_ref matrix, int top, int left, int index);
 
     struct TetrominoHash
     {
-        std::size_t operator()(Tetromino const &t) const noexcept
-        {
-            std::size_t seed = 0;
-            for (const auto &row : t)
-            {
-                for (const auto &element : row)
-                {
-                    seed ^= std::hash<int>{}(element.first) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-                    seed ^= std::hash<int>{}(element.second) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-                }
-            }
-            return seed;
-        }
+        std::size_t operator()(Tetromino const &t) const noexcept;
     };
 
 } // namespace tetromino

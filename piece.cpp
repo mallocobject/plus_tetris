@@ -40,6 +40,8 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
             score = 0;
         }
     }
+    // 刷新hold区
+    // 刷新next区
     return Piece(t, xo, yo, 0);
 }
 

@@ -118,7 +118,7 @@ void Game::end()
     terminal::setCursor(8, 11);
     terminal::setStyle(terminal::Style::Bold);
     terminal::setColor(terminal::Color::Red);
-    terminal::write("Game Over! Press any key to exit...");
+    terminal::fwrite("Game Over! Press any key to exit...");
     system("pause > nul");
     terminal::clearScreen();
     terminal::setCursor(1, 1);

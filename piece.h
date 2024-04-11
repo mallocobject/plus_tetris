@@ -21,6 +21,8 @@ public:
 
     // 生成一个新的方块
     static Piece generatePiece(Matrix *playfield);
+    static void initNextTetroes(const std::unordered_map<int, tetromino::Tetromino> &tetrominos); // 设置存储方块
+    static void deleteNextTetroes();                                                              // 删除存储方块
     static void setFlag(std::atomic<bool> *runnig_flag, std::atomic<bool> *rotate_flag);
 
     void down();     // 下移方块
@@ -68,6 +70,7 @@ private:
     static std::atomic<bool> *running_flag;
     static std::atomic<bool> *rotate_flag;                                                                                               // 运行标志
     static std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *tetro_map; // Tetromino 映射
+    static std::vector<std::pair<tetromino::Tetromino, int>> *nextTetroes;                                                               // 存储方块
 };
 
 namespace utils

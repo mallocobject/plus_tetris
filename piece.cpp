@@ -19,6 +19,10 @@ Piece Piece::generatePiece(Matrix *playfield)
         {5, tetromino::T},
         {6, tetromino::Z},
     };
+    if (!nextTetroes)
+    {
+        initNextTetroes(tetrominos);
+    }
     // 随机生成一个方块类型
     int tetromino_category = utils::generateRandomNumber(0, 6);
     tetromino::Tetromino t = tetrominos[tetromino_category];
@@ -26,9 +30,15 @@ Piece Piece::generatePiece(Matrix *playfield)
     int xo = utils::generateRandomNumber(1, 8);
     if (tetromino_category == 0 && xo == 8)     // I
         xo = utils::generateRandomNumber(1, 7); // 7
-    int yo = 21;
+    tetromino::Tetromino currentTetromimo = nextTetroes->at(0).first;
+    int current_xo = nextTetroes->at(0).second;
+    for (int i = 0; i < 3; i++)
+    {
+        nextTetroes->at(i) = nextTetroes->at(i + 1);
+    }
+    nextTetroes->at(3) = {t, xo};
     // 如果位置不可用，清空游戏区域
-    if (!isPositionFree(xo, yo, t))
+    if (!isPositionFree(current_xo, 21, currentTetromimo))
     {
         for (auto &row : *playfield)
         {
@@ -37,9 +47,42 @@ Piece Piece::generatePiece(Matrix *playfield)
         }
     }
     // 刷新hold区
-    utils::draw(t, 4, 6);
+    utils::draw(currentTetromimo, 4, 6);
     // 刷新next区
-    return Piece(t, xo, yo, 0);
+    int next_top = 4;
+    for (const auto &p : *nextTetroes)
+    {
+        utils::draw(p.first, next_top, 24);
+        next_top += 4;
+    }
+    return Piece(currentTetromimo, current_xo, 21, 0);
+}
+
+void Piece::initNextTetroes(const std::unordered_map<int, tetromino::Tetromino> &tetrominos)
+{
+    nextTetroes = new std::vector<std::pair<tetromino::Tetromino, int>>(4);
+    int tetromino_category = 0;
+    int xo = 0;
+    for (int i = 0; i < 4; i++)
+    {
+        // 随机生成一个方块类型
+        tetromino_category = utils::generateRandomNumber(0, 6);
+        tetromino::Tetromino t = tetrominos.at(tetromino_category);
+        // 随机生成方块的初始位置
+        xo = utils::generateRandomNumber(1, 8);
+        if (tetromino_category == 0 && xo == 8)     // I
+            xo = utils::generateRandomNumber(1, 7); // 7
+        nextTetroes->at(i) = {t, xo};
+    }
+}
+
+void Piece::deleteNextTetroes()
+{
+    if (nextTetroes)
+    {
+        delete nextTetroes;
+        nextTetroes = nullptr;
+    }
 }
 
 // 获取方块的位置
@@ -57,9 +100,9 @@ void utils::draw(tetromino::Tetromino t, int top, int left)
     // 重置HOLD区
     terminal::reset();
     terminal::setCursor(top - 1, utils::b2c(left - 1));
-    terminal::write("          ");
+    terminal::fwrite("          ");
     terminal::setCursor(top, utils::b2c(left - 1));
-    terminal::write("          ");
+    terminal::fwrite("          ");
 
     // 绘制HLOD区
     terminal::setColor((terminal::Color)t[0][0].second, false);
@@ -350,3 +393,4 @@ std::atomic<bool> *Piece::rotate_flag = nullptr;  // 旋转标志
 int Piece::score = 0;                             // 分数
 
 std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *Piece::tetro_map = nullptr; // Tetromino 映射
+std::vector<std::pair<tetromino::Tetromino, int>> *Piece::nextTetroes;                                                                         // 存储的方块

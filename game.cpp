@@ -44,8 +44,9 @@ void Game::start()
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
     // frame = playfield;
-    setSignalHandler();    // set signal handler
-    Piece::initTetroMap(); // init tetro_map
+    setSignalHandler();                      // set signal handler
+    Piece::initTetroMap();                   // init tetro_map
+    piece = Piece::generatePiece(playfield); // generate a new piece
 }
 
 // 更新游戏状态，包括自然下落和阴影块的处理
@@ -137,7 +138,8 @@ void Game::end()
         delete gm; // delete instance
         gm = nullptr;
     }
-    Piece::deleteTetroMap(); // delete tetro_map
+    Piece::deleteTetroMap();    // delete tetro_map
+    Piece::deleteNextTetroes(); // delete store_tetroes
 }
 
 // 运行子线程处理信号
@@ -235,9 +237,9 @@ void Game::setFPSandScoreWindow(int top, int left, int height, int width, const 
 {
     setWindow(top, left, height, width, title);
     terminal::setColor(terminal::Color::White, true);
-    terminal::setCursor(18, 44);
-    terminal::write("FPS:");
     terminal::setCursor(19, 44);
+    terminal::write("FPS:");
+    terminal::setCursor(20, 44);
     terminal::write("SCORE:");
 }
 
@@ -317,7 +319,7 @@ std::atomic<bool> Game::running_flag = true;
 std::atomic<bool> Game::rotate_flag = false;
 Matrix *Game::playfield = new std::vector<std::vector<int>>(10, std::vector<int>(22, 0));
 Matrix *Game::frame = new std::vector<std::vector<int>>(10, std::vector<int>(22, 0));
-Piece Game::piece = Piece::generatePiece(playfield);
+Piece Game::piece = Piece(tetromino::I, 5, 0, 0);
 int Game::duration = 500; // 500ms
 std::unordered_map<char, std::function<void()>> *Game::key_map = nullptr;
 

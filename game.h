@@ -84,6 +84,7 @@ public:
     static void setSignalHandler();
 
     static std::atomic<bool> running_flag;                           //< 运行标志
+    static std::atomic<bool> rotate_flag;                            //< 旋转标志
     static Piece piece;                                              //< 当前方块
     static Matrix *playfield;                                        //< 游戏区域
     static Matrix *frame;                                            //< 游戏框架

@@ -35,6 +35,7 @@ Game *Game::getInstance()
 // 开始游戏，初始化环境和游戏数据
 void Game::start()
 {
+    Piece::setFlag(&running_flag, &rotate_flag);
     terminal::setCursor(1, 1);
     terminal::reset();
     system("chcp 65001"); // UTF-8
@@ -51,7 +52,7 @@ void Game::start()
 void Game::update()
 {
     // drop naturally
-    if (utils::checkDuration(duration))
+    if (utils::checkDuration(duration, rotate_flag))
         piece.down();
 
     (*frame) = (*playfield);
@@ -313,9 +314,10 @@ void Game::handleSignals()
 }
 
 std::atomic<bool> Game::running_flag = true;
+std::atomic<bool> Game::rotate_flag = false;
 Matrix *Game::playfield = new std::vector<std::vector<int>>(10, std::vector<int>(22, 0));
 Matrix *Game::frame = new std::vector<std::vector<int>>(10, std::vector<int>(22, 0));
-Piece Game::piece = Piece::generatePiece(playfield, &running_flag);
+Piece Game::piece = Piece::generatePiece(playfield);
 int Game::duration = 500; // 500ms
 std::unordered_map<char, std::function<void()>> *Game::key_map = nullptr;
 

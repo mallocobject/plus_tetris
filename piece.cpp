@@ -6,10 +6,9 @@ Piece::Piece(tetromino::Tetromino t, int xo, int yo, int index)
     : t(t), xo(xo), yo(yo), index(index) {}
 
 // 生成一个新的方块
-Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
+Piece Piece::generatePiece(Matrix *playfield)
 {
     Piece::playfield = playfield;
-    Piece::running_flag = running_flag;
     // 定义所有的方块类型
     static std::unordered_map<int, tetromino::Tetromino> tetrominos = {
         {0, tetromino::I},
@@ -72,6 +71,12 @@ void utils::draw(tetromino::Tetromino t, int top, int left)
     }
 }
 
+void Piece::setFlag(std::atomic<bool> *runnig_flag, std::atomic<bool> *rotate_flag)
+{
+    Piece::running_flag = runnig_flag;
+    Piece::rotate_flag = rotate_flag;
+}
+
 // 方块下移
 void Piece::down()
 {
@@ -96,10 +101,12 @@ void Piece::rotate()
     if (isValid(xo, yo, (index + 1) % 4))
     {
         index = (index + 1) % 4;
+        *rotate_flag = true;
         return;
     }
     else if (t != tetromino::O)
     {
+        *rotate_flag = true;
         rotateTest(xo, yo);
     }
 }
@@ -186,7 +193,7 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
                 // clear the rows
                 // only when the piece is freezed, we can clear the rows
                 clearRows();
-                *this = generatePiece(playfield, running_flag);
+                *this = generatePiece(playfield);
             }
             return false;
         }
@@ -206,7 +213,7 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
 
                 // clear the rows
                 clearRows();
-                *this = generatePiece(playfield, running_flag);
+                *this = generatePiece(playfield);
             }
             return false;
         }
@@ -339,6 +346,7 @@ void Piece::move(int dx, int dy, bool isDown)
 
 Matrix *Piece::playfield = nullptr;               // 游戏区域
 std::atomic<bool> *Piece::running_flag = nullptr; // 运行标志
+std::atomic<bool> *Piece::rotate_flag = nullptr;  // 旋转标志
 int Piece::score = 0;                             // 分数
 
 std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *Piece::tetro_map = nullptr; // Tetromino 映射

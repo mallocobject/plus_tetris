@@ -12,7 +12,7 @@ namespace utils
     long long getCurrentTimestamp();
 
     // 检查给定的间隔时间是否已经过去，参数interval是间隔时间
-    bool checkDuration(int interval);
+    bool checkDuration(int interval, std::atomic<bool> &rotate_flag);
 
     // 生成一个在[min, max]范围内的随机数
     int generateRandomNumber(int min, int max);

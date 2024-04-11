@@ -28,10 +28,15 @@ long long utils::getCurrentTimestamp()
 }
 
 // 检查给定的间隔时间是否已经过去，参数interval是间隔时间
-bool utils::checkDuration(int interval)
+bool utils::checkDuration(int interval, std::atomic<bool> &rotate_flag)
 {
-    static auto begin = std::chrono::steady_clock::now();  // 开始时间
-    auto end = std::chrono::steady_clock::now();           // 结束时间
+    static auto begin = std::chrono::steady_clock::now(); // 开始时间
+    auto end = std::chrono::steady_clock::now();          // 结束时间
+    if (rotate_flag)                                      // 如果旋转标志为真
+    {
+        begin = end;         // 更新开始时间
+        rotate_flag = false; // 重置旋转标志
+    }
     if (end - begin > std::chrono::milliseconds(interval)) // 如果时间间隔大于给定的间隔时间
     {
         begin = end; // 更新开始时间

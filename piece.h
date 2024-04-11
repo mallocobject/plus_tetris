@@ -20,7 +20,8 @@ public:
     ~Piece() = default;                                       // 默认析构函数
 
     // 生成一个新的方块
-    static Piece generatePiece(Matrix *playfield, std::atomic<bool> *running_flag);
+    static Piece generatePiece(Matrix *playfield);
+    static void setFlag(std::atomic<bool> *runnig_flag, std::atomic<bool> *rotate_flag);
 
     void down();     // 下移方块
     void left();     // 左移方块
@@ -56,15 +57,16 @@ public:
     static int score;         // 分数
 
 private:
-    void clearRows();                                                                                                                    // 清除行
-    static bool isPositionFree(int xo, int yo, tetromino::Tetromino t);                                                                  // 检查位置是否空闲
-    void move(int dx, int dy, bool isDown = false);                                                                                      // 移动方块
-    void rotateTest(int xo, int yo);                                                                                                     // 旋转测试
-    bool SpecializedIsValid(int xo, int yo, int _index);                                                                                 // 特殊有效性检查
-    tetromino::Tetromino t;                                                                                                              // Tetromino
-    int xo, yo;                                                                                                                          // 直角坐标系
-    int index;                                                                                                                           // 索引
-    static std::atomic<bool> *running_flag;                                                                                              // 运行标志
+    void clearRows();                                                   // 清除行
+    static bool isPositionFree(int xo, int yo, tetromino::Tetromino t); // 检查位置是否空闲
+    void move(int dx, int dy, bool isDown = false);                     // 移动方块
+    void rotateTest(int xo, int yo);                                    // 旋转测试
+    bool SpecializedIsValid(int xo, int yo, int _index);                // 特殊有效性检查
+    tetromino::Tetromino t;                                             // Tetromino
+    int xo, yo;                                                         // 直角坐标系
+    int index;                                                          // 索引
+    static std::atomic<bool> *running_flag;
+    static std::atomic<bool> *rotate_flag;                                                                                               // 运行标志
     static std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *tetro_map; // Tetromino 映射
 };
 

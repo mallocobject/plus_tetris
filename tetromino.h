@@ -11,6 +11,8 @@ namespace tetromino
     using namespace terminal;
 
     // 顺时针旋转
+    // 定义各种形状的俄罗斯方块，每种形状有4种旋转状态，每种状态由4个坐标点表示
+    // 同时把颜色和种类信息存储在中心位置(0, 0)处
     // 0 -> R -> 2 -> L -> 0
     static const tetromino::Tetromino I = {{{{{'I', (int)Color::Cyan}, {-1, 0}, {1, 0}, {2, 0}}},   // 0
                                             {{{'I', (int)Color::Cyan}, {0, 1}, {0, -1}, {0, -2}}},  // R
@@ -52,6 +54,7 @@ namespace tetromino
 
     struct TetrominoHash
     {
+        // 该函数接受一个Tetromino类型的常量引用作为参数，返回其哈希值
         std::size_t operator()(Tetromino const &t) const noexcept;
     };
 

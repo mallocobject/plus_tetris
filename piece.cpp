@@ -1,13 +1,16 @@
 #include "piece.h"
 #include "define.h"
 
+// 构造函数，初始化方块类型、位置和索引
 Piece::Piece(tetromino::Tetromino t, int xo, int yo, int index)
     : t(t), xo(xo), yo(yo), index(index) {}
 
+// 生成一个新的方块
 Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
 {
     Piece::playfield = playfield;
     Piece::running_flag = running_flag;
+    // 定义所有的方块类型
     static std::unordered_map<int, tetromino::Tetromino> tetrominos = {
         {0, tetromino::I},
         {1, tetromino::J},
@@ -17,25 +20,19 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
         {5, tetromino::T},
         {6, tetromino::Z},
     };
+    // 随机生成一个方块类型
     int tetromino_category = utils::generateRandomNumber(0, 6);
     tetromino::Tetromino t = tetrominos[tetromino_category];
+    // 随机生成方块的初始位置
     int xo = utils::generateRandomNumber(1, 8);
     if (tetromino_category == 0 && xo == 8)     // I
         xo = utils::generateRandomNumber(1, 7); // 7
     int yo = 21;
+    // 如果位置不可用，清空游戏区域
     if (!isPositionFree(xo, yo, t))
     {
         for (auto &row : *playfield)
         {
-            // *playfield = Matrix(10, std::vector<int>(22, 0));
-            // the above code is the mother-fucking code
-            // The second operation will not work
-            // terminal::reset();
-            // terminal::setCursor(1, 40);
-            // int color_type = utils::generateRandomNumber(1, 7);
-            // terminal::setColor((terminal::Color)color_type);
-            // terminal::fwrite("You are failed!");
-
             std::fill(row.begin(), row.end(), 0);
             score = 0;
         }
@@ -46,6 +43,7 @@ Piece Piece::generatePiece(Matrix *playfield, std::atomic<bool> *running_flag)
     return Piece(t, xo, yo, 0);
 }
 
+// 获取方块的位置
 std::pair<int, int> specialized_getTetroPosition(tetromino::Tetromino t, int offset)
 {
     assert(offset >= 0 && offset < 4);
@@ -54,13 +52,17 @@ std::pair<int, int> specialized_getTetroPosition(tetromino::Tetromino t, int off
     return t[0][offset];
 }
 
+// 绘制方块
 void utils::draw(tetromino::Tetromino t, int top, int left)
 {
+    // 重置HOLD区
     terminal::reset();
     terminal::setCursor(top - 1, utils::b2c(left - 1));
     terminal::write("          ");
     terminal::setCursor(top, utils::b2c(left - 1));
     terminal::write("          ");
+
+    // 绘制HLOD区
     terminal::setColor((terminal::Color)t[0][0].second, false);
     for (int i = 0; i < 4; i++)
     {
@@ -70,21 +72,25 @@ void utils::draw(tetromino::Tetromino t, int top, int left)
     }
 }
 
+// 方块下移
 void Piece::down()
 {
     move(0, -1, true);
 }
 
+// 方块左移
 void Piece::left()
 {
     move(-1, 0);
 }
 
+// 方块右移
 void Piece::right()
 {
     move(1, 0);
 }
 
+// 旋转方块
 void Piece::rotate()
 {
     if (isValid(xo, yo, (index + 1) % 4))
@@ -98,6 +104,7 @@ void Piece::rotate()
     }
 }
 
+// 测试旋转
 void Piece::rotateTest(int xo, int yo)
 {
     for (const auto &p : tetro_map->at(t)[index])
@@ -113,6 +120,7 @@ void Piece::rotateTest(int xo, int yo)
     }
 }
 
+// 检查位置是否有效
 bool Piece::SpecializedIsValid(int xo, int yo, int _index)
 {
     for (int i = 0; i < 4; i++)
@@ -137,6 +145,7 @@ bool Piece::SpecializedIsValid(int xo, int yo, int _index)
     return true;
 }
 
+// 快速下落
 void Piece::fastDrop()
 {
     // 这里的false标志位很重要，如果传递true则要等下一个循环，转移键盘响应piece
@@ -148,6 +157,7 @@ void Piece::fastDrop()
 // isShadow is a flag to indicate whether the piece is a shadow piece
 // 函数的默认参数值应该只在函数声明中给出，不应在函数定义中再次给出
 // 这个函数只有我和上帝看懂，或许在一周后，怕是只有上帝能看懂了
+// 检查 Piece 对象的位置是否有效
 bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
 {
     // int cnt = 0;
@@ -204,6 +214,7 @@ bool Piece::isValid(int xo, int yo, int _index, bool isShadow, bool isDown)
     return true;
 }
 
+// 清除行
 void Piece::clearRows()
 {
     for (int y = playfield->front().size() - 1; y >= 2; y--)
@@ -232,6 +243,7 @@ void Piece::clearRows()
     }
 }
 
+// 获取方块的位置
 std::pair<int, int> Piece::getTetroPosition(int offset, int _index)
 {
     assert(offset >= 0 && offset < 4);
@@ -240,26 +252,31 @@ std::pair<int, int> Piece::getTetroPosition(int offset, int _index)
     return t[_index][offset];
 }
 
+// 获取方块的“中心”位置
 std::pair<int, int> Piece::getPosition()
 {
     return {xo, yo};
 }
 
+// 获取方块的索引
 int Piece::getIndex() const
 {
     return index;
 }
 
+// 获取方块的类型
 tetromino::Tetromino Piece::getTetromino() const
 {
     return t;
 }
 
+// 获取方块的颜色
 int Piece::getColor() const
 {
     return t[index][0].second;
 }
 
+// 初始化 Tetromino 映射
 void Piece::initTetroMap()
 {
     tetro_map = new std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash>{
@@ -289,6 +306,7 @@ void Piece::initTetroMap()
                         {{-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}}}}; // L - 0
 }
 
+// 删除 Tetromino 映射
 void Piece::deleteTetroMap()
 {
     if (tetro_map)
@@ -298,6 +316,7 @@ void Piece::deleteTetroMap()
     }
 }
 
+// 检查位置是否空闲
 bool Piece::isPositionFree(int xo, int yo, tetromino::Tetromino t)
 {
     if ((*playfield)[xo][yo] > 0)
@@ -308,6 +327,7 @@ bool Piece::isPositionFree(int xo, int yo, tetromino::Tetromino t)
                         { return (*playfield)[xo + pos.first][yo] > 0; });
 }
 
+// 移动方块
 void Piece::move(int dx, int dy, bool isDown)
 {
     if (isValid(xo + dx, yo + dy, index, false, isDown))
@@ -317,8 +337,8 @@ void Piece::move(int dx, int dy, bool isDown)
     }
 }
 
-Matrix *Piece::playfield = nullptr;
-std::atomic<bool> *Piece::running_flag = nullptr;
-int Piece::score = 0;
+Matrix *Piece::playfield = nullptr;               // 游戏区域
+std::atomic<bool> *Piece::running_flag = nullptr; // 运行标志
+int Piece::score = 0;                             // 分数
 
-std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *Piece::tetro_map = nullptr;
+std::unordered_map<tetromino::Tetromino, std::vector<std::vector<std::pair<int, int>>>, tetromino::TetrominoHash> *Piece::tetro_map = nullptr; // Tetromino 映射

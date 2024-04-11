@@ -1,6 +1,7 @@
 #include "game.h"
 #include "define.h"
 
+// 析构函数，释放动态分配的内存
 Game::~Game()
 {
     if (!playfield)
@@ -21,6 +22,7 @@ Game::~Game()
     // std::cout << "Game Over!" << std::endl;
 }
 
+// 获取游戏实例，如果不存在则创建
 Game *Game::getInstance()
 {
     if (gm == nullptr)
@@ -30,6 +32,7 @@ Game *Game::getInstance()
     return gm;
 }
 
+// 开始游戏，初始化环境和游戏数据
 void Game::start()
 {
     terminal::setCursor(1, 1);
@@ -44,6 +47,7 @@ void Game::start()
     Piece::initTetroMap(); // init tetro_map
 }
 
+// 更新游戏状态，包括自然下落和阴影块的处理
 void Game::update()
 {
     // drop naturally
@@ -75,6 +79,7 @@ void Game::update()
     }
 }
 
+// 渲染游戏画面
 void Game::render(int top, int left)
 {
     static int count = 0;
@@ -112,6 +117,7 @@ void Game::render(int top, int left)
     }
 }
 
+// 结束游戏，释放资源
 void Game::end()
 {
     terminal::reset();
@@ -133,25 +139,30 @@ void Game::end()
     Piece::deleteTetroMap(); // delete tetro_map
 }
 
+// 运行子线程处理信号
 std::thread Game::runSubThread()
 {
     return std::thread(&Game::handleSignals);
 }
 
+// 设置游戏帧率
 void Game::setFPS(int fps)
 {
 }
 
+// 设置游戏更新间隔
 void Game::setDuration(int interval)
 {
     utils::setDuration(interval);
 }
 
+// 设置方块自然下落的间隔
 void Game::setDropInterval(int interval)
 {
     duration = interval;
 }
 
+// 设置窗口样式和标题
 void setWindow(int top, int left, int height, int width, const std::string &title, bool isCenter = false)
 {
     terminal::reset();
@@ -192,11 +203,13 @@ void setWindow(int top, int left, int height, int width, const std::string &titl
     terminal::write(title);
 }
 
+// 设置主窗口
 void Game::setMainWindow(int top, int left, int height, int width, const std::string &title)
 {
     setWindow(top, left, height, width, title, true);
 }
 
+// 设置帮助窗口
 void Game::setHelpWindow(int top, int left, int height, int width, const std::string &title)
 {
     setWindow(top, left, height, width, title);
@@ -216,6 +229,7 @@ void Game::setHelpWindow(int top, int left, int height, int width, const std::st
     terminal::write("q => \u292c");
 }
 
+// 设置 FPS 和分数窗口
 void Game::setFPSandScoreWindow(int top, int left, int height, int width, const std::string &title)
 {
     setWindow(top, left, height, width, title);
@@ -226,42 +240,50 @@ void Game::setFPSandScoreWindow(int top, int left, int height, int width, const 
     terminal::write("SCORE:");
 }
 
+// 设置 Hold 窗口
 void Game::setHoldWindow(int top, int left, int height, int width, const std::string &title)
 {
     setWindow(top, left, height, width, title);
     utils::draw(piece.getTetromino(), 4, 6);
 }
 
+// 设置 Next 窗口
 void Game::setNextWindow(int top, int left, int height, int width, const std::string &title)
 {
     setWindow(top, left, height, width, title);
 }
 
+// 旋转方块
 void Game::rotate()
 {
     piece.rotate();
 }
 
+// 方块向下移动
 void Game::down()
 {
     piece.down();
 }
 
+// 方块向左移动
 void Game::left()
 {
     piece.left();
 }
 
+// 方块向右移动
 void Game::right()
 {
     piece.right();
 }
 
+// 方块快速下落
 void Game::fastDrop()
 {
     piece.fastDrop();
 }
 
+// 设置信号处理函数，处理用户输入
 void Game::setSignalHandler()
 {
     key_map = new std::unordered_map<char, std::function<void()>>();
@@ -274,6 +296,7 @@ void Game::setSignalHandler()
     { running_flag = false; };
 }
 
+// 处理用户输入的信号
 void Game::handleSignals()
 {
     while (running_flag)

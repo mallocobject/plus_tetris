@@ -7,8 +7,8 @@ project(plus_tetris)
 # 设置项目使用的 C++ 标准版本为 C++20
 set(CMAKE_CXX_STANDARD 20)
 
-# 将当前目录（"."）中的所有源文件添加到 `SRC_LIST` 变量中
-aux_source_directory(. SRC_LIST)
+# 将当前目录中的所有源文件添加到 `SRC_LIST` 变量中
+aux_source_directory(./ SRC_LIST)
 
 # 添加一个可执行文件目标，目标名称为项目名称（这里是 "plus_tetris"），源文件列表为 `SRC_LIST`
 add_executable(${PROJECT_NAME} ${SRC_LIST})

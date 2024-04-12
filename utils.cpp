@@ -14,7 +14,7 @@ int utils::getFPS(int &frame_count)
         begin = end;       // 更新开始时间
     }
     terminal::reset();                                // 重置终端
-    terminal::setCursor(19, 49);                      // 设置光标位置
+    terminal::setCursor(18, 49);                      // 设置光标位置
     terminal::setColor(terminal::Color::White, true); // 设置颜色
     terminal::write(fps);                             // 输出帧率
     terminal::write(' ');                             // 输出空格
@@ -78,7 +78,7 @@ int utils::b2c(int val)
 int utils::getScore(int score)
 {
     terminal::reset();                                // 重置终端
-    terminal::setCursor(20, 51);                      // 设置光标位置
+    terminal::setCursor(19, 51);                      // 设置光标位置
     terminal::setColor(terminal::Color::White, true); // 设置颜色
     terminal::write(score);                           // 输出分数
     return score;                                     // 返回分数

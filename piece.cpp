@@ -49,7 +49,7 @@ Piece Piece::generatePiece(Matrix *playfield)
     // 刷新hold区
     utils::draw(currentTetromimo, 4, 6);
     // 刷新next区
-    int next_top = 4;
+    int next_top = 3;
     for (const auto &p : *nextTetroes)
     {
         utils::draw(p.first, next_top, 24);

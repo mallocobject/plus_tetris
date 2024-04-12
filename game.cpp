@@ -237,9 +237,9 @@ void Game::setFPSandScoreWindow(int top, int left, int height, int width, const 
 {
     setWindow(top, left, height, width, title);
     terminal::setColor(terminal::Color::White, true);
-    terminal::setCursor(19, 44);
+    terminal::setCursor(18, 44);
     terminal::write("FPS:");
-    terminal::setCursor(20, 44);
+    terminal::setCursor(19, 44);
     terminal::write("SCORE:");
 }
 

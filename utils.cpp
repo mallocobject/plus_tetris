@@ -55,12 +55,29 @@ int utils::generateRandomNumber(int min, int max)
     return dis(gen);                                  // 返回生成的随机数
 }
 
-// 设置一个持续时间，参数interval是持续时间
-void utils::setDuration(int interval)
+// 绘制当前计时时间
+inline void drawTick(std::chrono::milliseconds endure)
 {
+    auto minutes = std::chrono::duration_cast<std::chrono::minutes>(endure).count();      // 分
+    auto seconds = std::chrono::duration_cast<std::chrono::seconds>(endure).count() % 60; // 秒
+    auto milliseconds = endure.count() % 1000;                                            // 毫秒
+
+    terminal::reset();
+    terminal::setCursor(20, 44);
+    terminal::setColor(terminal::Color::White, true);
+    terminal::setStyle(terminal::Style::Underline);
+    terminal::drawTick(minutes, seconds, milliseconds);
+}
+
+// 设置一个持续时间，参数interval是持续时间
+void utils::durate(int interval)
+{
+    static auto start = std::chrono::system_clock::now();
     auto begin = std::chrono::system_clock::now();                                      // 开始时间
     auto now = begin;                                                                   // 当前时间
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - begin); // 持续时间
+    auto endure = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);   // 更新计时时间
+    drawTick(endure);                                                                   // 打印计时时间
     while (duration.count() < interval)                                                 // 如果持续时间小于给定的间隔时间
     {
         now = std::chrono::system_clock::now();                                        // 更新当前时间

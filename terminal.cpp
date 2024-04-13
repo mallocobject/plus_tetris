@@ -53,3 +53,14 @@ void terminal::reset()
     std::lock_guard<std::mutex> lock(cout_mtx);
     std::cout << "\033[0m";
 }
+
+// 绘制计时时间
+void terminal::drawTick(int64_t minutes, int64_t seconds, int64_t milliseconds)
+{
+    std::lock_guard<std::mutex> lock(cout_mtx);
+    std::cout << std::setfill('0')
+              << std::setw(2) << minutes << ":"
+              << std::setw(2) << seconds << ":"
+              << std::setw(3) << milliseconds
+              << std::flush;
+}

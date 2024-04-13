@@ -156,7 +156,7 @@ void Game::setFPS(int fps)
 // 设置游戏更新间隔
 void Game::setDuration(int interval)
 {
-    utils::setDuration(interval);
+    utils::durate(interval);
 }
 
 // 设置方块自然下落的间隔
@@ -203,6 +203,7 @@ void setWindow(int top, int left, int height, int width, const std::string &titl
         terminal::setCursor(top, utils::b2c(left) + 1);
     }
     terminal::setColor(terminal::Color::Green, true);
+    terminal::setStyle(terminal::Style::Italic);
     terminal::write(title);
 }
 
@@ -233,7 +234,7 @@ void Game::setHelpWindow(int top, int left, int height, int width, const std::st
 }
 
 // 设置 FPS 和分数窗口
-void Game::setFPSandScoreWindow(int top, int left, int height, int width, const std::string &title)
+void Game::setStatus(int top, int left, int height, int width, const std::string &title)
 {
     setWindow(top, left, height, width, title);
     terminal::setColor(terminal::Color::White, true);

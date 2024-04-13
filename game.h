@@ -57,7 +57,7 @@ public:
     static void setHelpWindow(int top, int left, int height, int width, const std::string &title);
 
     // 设置帧率和分数窗口
-    static void setFPSandScoreWindow(int top, int left, int height, int width, const std::string &title);
+    static void setStatus(int top, int left, int height, int width, const std::string &title);
 
     // 设置保持窗口
     static void setHoldWindow(int top, int left, int height, int width, const std::string &title);

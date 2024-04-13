@@ -18,7 +18,7 @@ namespace utils
     int generateRandomNumber(int min, int max);
 
     // 设置一个持续时间，参数interval是持续时间
-    void setDuration(int interval);
+    void durate(int interval);
 
     // 将一个方块宽度转换为字符宽度，参数val是方块
     int b2c(int val);

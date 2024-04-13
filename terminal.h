@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <mutex>
+#include <iomanip>
 
 // 用于保护 std::cout 的互斥锁
 extern std::mutex cout_mtx;
@@ -56,6 +57,9 @@ namespace terminal
 
     // 重置控制台的函数
     void reset();
+
+    // 绘制计时时间
+    void drawTick(int64_t minutes, int64_t seconds, int64_t milliseconds);
 
     // 输出文本的函数，线程安全
     template <typename T>

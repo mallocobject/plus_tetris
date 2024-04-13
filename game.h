@@ -44,8 +44,8 @@ public:
     // 设置帧率
     static void setFPS(int fps);
 
-    // 设置持续时间
-    static void setDuration(int interval);
+    // 延迟
+    static void durate(int interval);
 
     // 设置下落间隔
     static void setDropInterval(int interval);

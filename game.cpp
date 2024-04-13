@@ -153,8 +153,8 @@ void Game::setFPS(int fps)
 {
 }
 
-// 设置游戏更新间隔
-void Game::setDuration(int interval)
+// 延迟
+void Game::durate(int interval)
 {
     utils::durate(interval);
 }

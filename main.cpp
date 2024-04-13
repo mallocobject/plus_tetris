@@ -14,9 +14,9 @@ int main()
     std::thread th = gm->runSubThread();        // 在一个新的线程中监听键盘输入
     while (gm->running_flag)                    // 当游戏正在运行时，原子变量 running_flag防止读写冲突
     {
-        gm->update();        // 更新游戏状态
-        gm->render(2, 11);   // 渲染游戏画面
-        gm->setDuration(10); // 设置每一帧的持续时间为 10 毫秒
+        gm->update();      // 更新游戏状态
+        gm->render(2, 11); // 渲染游戏画面
+        gm->durate(10);    // 设置每一帧的持续时间为 10 毫秒
     }
     th.join(); // 等待游戏的主循环线程结束
     gm->end(); // 结束游戏
